@@ -19,6 +19,8 @@ import { motion, AnimatePresence } from "framer-motion";
 import HierarchyView from "./HierarchyView.jsx";
 import CompanyReport from "./CompanyReport.jsx";
 import CompanyTaskReport from "./CompanyTaskReport.jsx";
+import BillSectionPage from "./Billsection.jsx";
+import Billreport from "./Billreport.jsx";
 // Sidebar items
 const NAV_ITEMS = [
   { key: "dashboard", label: "Dashboard" },
@@ -29,6 +31,15 @@ const NAV_ITEMS = [
    { key: "department", label: "Department" },
    { key: "company", label: "Company" },
    { key: "hierarchy", label: "Hierarchy" },
+    // { key: "accounts", label: "Account" },
+    {
+    key: "accounts",
+    label: "Accounts",
+    children: [
+      { key: "billsection", label: "Bill Section" },
+      { key: "billreport", label: "Bill Report" },
+    ],
+  },
   { key: "reports", label: "Task Reports" },
   { key: "companyreports", label: "Company Reports" },
 ];
@@ -36,6 +47,18 @@ const NAV_ITEMS = [
 function AdminDashboard() {
   const [active, setActive] = useState("dashboard");
   const [isOpen, setIsOpen] = useState(false);
+   const [openSubmenu, setOpenSubmenu] = useState(null);
+
+  const handleSelect = (key, hasChildren) => {
+    if (hasChildren) {
+      setOpenSubmenu(openSubmenu === key ? null : key);
+      return;
+    }
+    setActive(key);
+    setIsOpen(false);
+    setOpenSubmenu(null);
+  };
+
 //  const [userGraph, setUserGraph] = useState([]);
 //   const [orderGraph, setOrderGraph] = useState([]);
 
@@ -67,10 +90,10 @@ function AdminDashboard() {
     //   count: d.count,
     // }));
 
-  const handleSelect = (key) => {
-    setActive(key);
-    setIsOpen(false);
-  };
+  // const handleSelect = (key) => {
+  //   setActive(key);
+  //   setIsOpen(false);
+  // };
 
 
 
@@ -129,16 +152,35 @@ function AdminDashboard() {
             <div className="fs-5 fw-semibold mb-3 text-secondary">Menu</div>
             <ul className="nav nav-pills flex-column gap-2">
               {NAV_ITEMS.map((item) => (
-                <li className="nav-item" key={item.key}>
+                <li key={item.key}>
                   <button
-                    type="button"
-                    onClick={() => handleSelect(item.key)}
                     className={`nav-link w-100 text-start ${
                       active === item.key ? "active fw-bold" : ""
                     }`}
+                    onClick={() =>
+                      handleSelect(item.key, !!item.children)
+                    }
                   >
                     {item.label}
                   </button>
+
+                  {/* SUBMENU */}
+                  {item.children && openSubmenu === item.key && (
+                    <ul className="nav flex-column ps-3 mt-2">
+                      {item.children.map((sub) => (
+                        <li key={sub.key}>
+                          <button
+                            className={`nav-link w-100 text-start ${
+                              active === sub.key ? "active fw-bold" : ""
+                            }`}
+                            onClick={() => handleSelect(sub.key)}
+                          >
+                            ➤ {sub.label}
+                          </button>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
                 </li>
               ))}
             </ul>
@@ -195,6 +237,9 @@ function AdminDashboard() {
               {active === "department" && <DepartmentList />}
               {active === "company" && <CompanyListTable />}
               {active === "hierarchy" && <HierarchyView />}
+               {/* SUBMENU SCREENS */}
+              {active === "billsection" && <BillSectionPage />}
+              {active === "billreport" && <Billreport />}
               {active === "reports" && <TaskReports />}
               {active === "companyreports" && <CompanyReport />}
             </motion.div>
@@ -202,150 +247,180 @@ function AdminDashboard() {
         </main>
       </div>
     </div>
-//     <div className="admin-wrap">
-//       {/* Top bar */}
-//       <header className="navbar navbar-light bg-white border-bottom sticky-top">
-//         <div className="container-fluid">
-//           <div className="d-flex align-items-center gap-2">
-//             <button
-//               className="btn btn-outline-secondary d-lg-none"
-//               aria-label="Toggle sidebar"
-//               aria-controls="sidebar"
-//               aria-expanded={isOpen}
-//               onClick={() => setIsOpen((v) => !v)}
-//             >
-//               <span className="navbar-toggler-icon" />
-//             </button>
-//             <span className="navbar-brand mb-0 h1">Admin</span>
-//           </div>
+     );
+}
+    export default AdminDashboard;
+
+
+
+
+ 
+// import React, { useState } from "react";
+// import "../admincomponents/AdminDashboard.css";
+
+// import ManagerList from "./ManagerList";
+// import DepartmentList from "./DepartmentListTable.jsx";
+// import AssistantManagerList from "./AssistantManagerList.jsx";
+// import CompanyListTable from "./CompanyListTable.jsx";
+// import StaffListTable from "./StaffListTable.jsx";
+// import TaskListTable from "./TaskListTable.jsx";
+// import TaskReports from "./TaskReports.jsx";
+// import { motion, AnimatePresence } from "framer-motion";
+// import HierarchyView from "./HierarchyView.jsx";
+// import CompanyReport from "./CompanyReport.jsx";
+// import CompanyTaskReport from "./CompanyTaskReport.jsx";
+// import Billsection from "./Billsection.jsx";
+
+// // ➕ NEW COMPONENTS (you can replace with real screens)
+
+
+// const NAV_ITEMS = [
+//   { key: "dashboard", label: "Dashboard" },
+//   { key: "task", label: "Task" },
+//   { key: "manager", label: "Manager" },
+//   { key: "assmanager", label: "Assistant Manager" },
+//   { key: "staff", label: "Staff" },
+//   { key: "department", label: "Department" },
+//   { key: "company", label: "Company" },
+//   { key: "hierarchy", label: "Hierarchy" },
+
+//   // ✅ ACCOUNTS WITH SUB MENU
+//   {
+//     key: "accounts",
+//     label: "Accounts",
+//     children: [
+//       { key: "billsection", label: "Bill Section" },
+//       { key: "billreport", label: "Bill Report" },
+//     ],
+//   },
+
+//   { key: "reports", label: "Task Reports" },
+//   { key: "companyreports", label: "Company Reports" },
+// ];
+
+// function AdminDashboard() {
+//   const [active, setActive] = useState("dashboard");
+//   const [isOpen, setIsOpen] = useState(false);
+//   const [openSubmenu, setOpenSubmenu] = useState(null);
+
+//   const handleSelect = (key, hasChildren) => {
+//     if (hasChildren) {
+//       setOpenSubmenu(openSubmenu === key ? null : key);
+//       return;
+//     }
+//     setActive(key);
+//     setIsOpen(false);
+//     setOpenSubmenu(null);
+//   };
+
+//   return (
+//     <div className="admin-wrap d-flex flex-column min-vh-100">
+//       {/* TOP NAV */}
+//       <header className="navbar navbar-light bg-white border-bottom sticky-top shadow-sm">
+//         <div className="container-fluid d-flex justify-content-between">
+//           <button
+//             className="btn btn-outline-secondary d-lg-none"
+//             onClick={() => setIsOpen(!isOpen)}
+//           >
+//             <span className="navbar-toggler-icon" />
+//           </button>
+//           <span className="navbar-brand fw-bold text-primary">Admin Panel</span>
 //           <div className="d-none d-sm-block small text-muted">
-//             {NAV_ITEMS.find((n) => n.key === active)?.label}
+//             {NAV_ITEMS.find((x) => x.key === active)?.label}
 //           </div>
 //         </div>
 //       </header>
 
-//       <div className="d-flex min-vh-100">
-//         {/* Sidebar */}
-//         <nav
-//           id="sidebar"
-//           className={`sidebar bg-light border-end ${isOpen ? "open" : ""}`}
-//           aria-label="Sidebar"
+//       {/* BODY */}
+//       <div className="d-flex flex-grow-1">
+//         {/* Sidebar animation */}
+//         <motion.nav
+//           className="sidebar bg-light border-end"
+//           initial={{ x: "-100%" }}
+//           animate={{ x: isOpen ? "0%" : "-100%" }}
+//           transition={{ type: "spring", stiffness: 80 }}
 //         >
-//           <div className="p-3 d-flex flex-column h-100">
+//           <div className="p-3 h-100">
 //             <div className="fs-5 fw-semibold mb-3 text-secondary">Menu</div>
-//             <ul className="nav nav-pills flex-column gap-1">
+
+//             <ul className="nav nav-pills flex-column gap-2">
 //               {NAV_ITEMS.map((item) => (
-//                 <li className="nav-item" key={item.key}>
+//                 <li key={item.key}>
 //                   <button
-//                     type="button"
-//                     onClick={() => handleSelect(item.key)}
 //                     className={`nav-link w-100 text-start ${
-//                       active === item.key ? "active" : ""
+//                       active === item.key ? "active fw-bold" : ""
 //                     }`}
-//                     aria-current={active === item.key ? "page" : undefined}
+//                     onClick={() =>
+//                       handleSelect(item.key, !!item.children)
+//                     }
 //                   >
 //                     {item.label}
 //                   </button>
+
+//                   {/* SUBMENU */}
+//                   {item.children && openSubmenu === item.key && (
+//                     <ul className="nav flex-column ps-3 mt-2">
+//                       {item.children.map((sub) => (
+//                         <li key={sub.key}>
+//                           <button
+//                             className={`nav-link w-100 text-start ${
+//                               active === sub.key ? "active fw-bold" : ""
+//                             }`}
+//                             onClick={() => handleSelect(sub.key)}
+//                           >
+//                             ➤ {sub.label}
+//                           </button>
+//                         </li>
+//                       ))}
+//                     </ul>
+//                   )}
 //                 </li>
 //               ))}
 //             </ul>
 
 //             <div className="mt-auto small text-muted">
 //               <hr />
-//               <div>v1.0</div>
+//               v1.0
 //             </div>
 //           </div>
-//         </nav>
+//         </motion.nav>
 
-//         {/* Clickable backdrop for mobile */}
-//         {isOpen && <div className="backdrop" onClick={() => setIsOpen(false)} />}
+//         {/* MAIN CONTENT */}
+//         <main className="content flex-grow-1 p-3 p-md-4 bg-light">
+//           <AnimatePresence mode="wait">
+//             <motion.div
+//               key={active}
+//               initial={{ opacity: 0, y: 20 }}
+//               animate={{ opacity: 1, y: 0 }}
+//               exit={{ opacity: 0, y: 20 }}
+//               transition={{ duration: 0.3 }}
+//             >
+//               {/* PAGE TITLE */}
+//               <h1 className="h4 mb-4 fw-bold">
+//                 {NAV_ITEMS.find((n) => n.key === active)?.label}
+//               </h1>
 
-//         {/* Main content */}
-//         <main className="content flex-grow-1">
-//           <div className="container-fluid py-4">
-//             <h1 className="h3 mb-3">
-//               {NAV_ITEMS.find((n) => n.key === active)?.label}
-//             </h1>
+//               {/* ROUTES */}
+//               {active === "dashboard" && <CompanyTaskReport />}
+//               {active === "task" && <TaskListTable />}
+//               {active === "manager" && <ManagerList />}
+//               {active === "assmanager" && <AssistantManagerList />}
+//               {active === "staff" && <StaffListTable />}
+//               {active === "department" && <DepartmentList />}
+//               {active === "company" && <CompanyListTable />}
+//               {active === "hierarchy" && <HierarchyView />}
+//               {active === "reports" && <TaskReports />}
+//               {active === "companyreports" && <CompanyReport />}
 
-//             {/* Sections */}
-//             {active === "dashboard" && (
-//               <div className="row g-3">
-//                 <div className="col-md-6 col-xl-3">
-//                   {/* <div className="card h-100">
-//                     <div className="card-body">
-//                       <div className="card-title">Users</div>
-//                       <div className="display-6">{stats.userCount}</div>
-                      
-//                     </div>
-//                   </div> */}
-//                 </div>
-//                 {/* <div className="col-md-6 col-xl-3">
-//                   <div className="card h-100">
-//                     <div className="card-body">
-//                       <div className="card-title">Orders</div>
-//                       <div className="display-6">{stats.orderCount}</div>
-                    
-//                     </div>
-//                   </div>
-//                 </div> */}
-//                 <div className="col-12 col-xl-6">
-//                   <div className="card h-100">
-//                     <div className="card-body">
-//                       <div className="card-title">Overview</div>
-//                       <p className="mb-0">
-//                         Welcome to your dashboard. Pick a section from the left
-//                         to get started.
-//                       </p>
-//                     </div>
-//                   </div>
-//                 </div>
-//                  {/* Charts */}
-//       <div className="row g-3">
-        
-// <TaskListTable />
-       
-//       </div>
-//               </div>
-
-              
-//             )}
-
-  
-
-
-//             {active === "task" && (
-//            <TaskListTable />
-//             )}
-
-//             {active === "manager" && (
-//              <ManagerList />
-//             )}
-
-//              {active === "assmanager" && (
-//              <AssistantManagerList />
-//             )}
-
-//             {active === "staff" && (
-//              <StaffListTable />
-//             )}
-
-//              {active === "department" && (
-//              <DepartmentList />
-//             )}
-
-//             {active === "company" && (
-//              <CompanyListTable />
-//             )}
-
-//             {active === "reports" && (
-//             <TaskReports />
-//             )}
-//           </div>
+//               {/* SUBMENU SCREENS */}
+//               {active === "billsection" && <Billsection />}
+//               {active === "billreport" && <HierarchyView />}
+//             </motion.div>
+//           </AnimatePresence>
 //         </main>
 //       </div>
 //     </div>
-  );
-}
+//   );
+// }
 
-// ✅ Exporting component
-export default AdminDashboard;
+// export default AdminDashboard;

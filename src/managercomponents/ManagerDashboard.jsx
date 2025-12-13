@@ -84,13 +84,24 @@ import ManagerTaskAssignList from "./ManagerTaskAssignList";
 import ManagerReports from "./ManagerReports";
 import CompanyTaskReport from "../admincomponents/CompanyTaskReport";
 import Accounts from "./Accounts";
+import Billreport from "../admincomponents/Billreport";
+import BillSectionPage from "../admincomponents/Billsection";
 
 // Sidebar items
 const NAV_ITEMS = [
   { key: "dashboard", label: "Dashboard" },
   { key: "task", label: "Task" },
   { key: "overallcompanytask", label: "OverAll Company Task" },
-  { key: "accounts", label: "Accounts" },
+  
+    // { key: "accounts", label: "Account" },
+    {
+    key: "accounts",
+    label: "Accounts",
+    children: [
+      { key: "billsection", label: "Bill Section" },
+      { key: "billreport", label: "Bill Report" },
+    ],
+  },
   { key: "report", label: "Report" },
   
 ];
@@ -98,6 +109,18 @@ const NAV_ITEMS = [
 function ManagerDashboard() {
   const [active, setActive] = useState("dashboard");
   const [isOpen, setIsOpen] = useState(false);
+
+   const [openSubmenu, setOpenSubmenu] = useState(null);
+  
+    const handleSelect = (key, hasChildren) => {
+      if (hasChildren) {
+        setOpenSubmenu(openSubmenu === key ? null : key);
+        return;
+      }
+      setActive(key);
+      setIsOpen(false);
+      setOpenSubmenu(null);
+    };
 //  const [userGraph, setUserGraph] = useState([]);
 //   const [orderGraph, setOrderGraph] = useState([]);
 
@@ -129,11 +152,7 @@ function ManagerDashboard() {
     //   count: d.count,
     // }));
 
-  const handleSelect = (key) => {
-    setActive(key);
-    setIsOpen(false);
-  };
-
+  
 
 
   return (
@@ -171,16 +190,34 @@ function ManagerDashboard() {
             <ul className="nav nav-pills flex-column gap-1">
               {NAV_ITEMS.map((item) => (
                 <li className="nav-item" key={item.key}>
+                  {/* <li key={item.key}></li> */}
                   <button
-                    type="button"
-                    onClick={() => handleSelect(item.key)}
                     className={`nav-link w-100 text-start ${
-                      active === item.key ? "active" : ""
+                      active === item.key ? "active fw-bold" : ""
                     }`}
-                    aria-current={active === item.key ? "page" : undefined}
+                    onClick={() =>
+                      handleSelect(item.key, !!item.children)
+                    }
                   >
                     {item.label}
                   </button>
+                  {/* SUBMENU */}
+                   {item.children && openSubmenu === item.key && (
+                    <ul className="nav flex-column ps-3 mt-2">
+                      {item.children.map((sub) => (
+                        <li key={sub.key}>
+                          <button
+                            className={`nav-link w-100 text-start ${
+                              active === sub.key ? "active fw-bold" : ""
+                            }`}
+                            onClick={() => handleSelect(sub.key)}
+                          >
+                            ➤ {sub.label}
+                          </button>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
                 </li>
               ))}
             </ul>
@@ -256,9 +293,11 @@ function ManagerDashboard() {
            <CompanyTaskReport />
             )}
 
-            {active === "accounts" && (
-           <Accounts />
-            )}
+           
+
+              {/* SUBMENU SCREENS */}
+                          {active === "billsection" && <BillSectionPage />}
+                          {active === "billreport" && <Billreport />}
 
             {active === "report" && (
              <ManagerReports />

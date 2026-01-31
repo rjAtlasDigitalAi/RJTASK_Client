@@ -16,7 +16,7 @@ export default function EditManagerModalForm({ isOpen, onClose, manager, onUpdat
   useEffect(() => {
     if (isOpen) {
       axios
-        .get("https://rjtaskmanagment-server.onrender.com/api/departments")
+        .get("https://rj-task-managment-server.vercel.app/api/departments")
         .then((res) => setDepartments(res.data))
         .catch((err) => console.error("Error fetching departments:", err));
     }
@@ -43,7 +43,7 @@ export default function EditManagerModalForm({ isOpen, onClose, manager, onUpdat
     setLoading(true);
     try {
       await axios.put(
-        `https://rjtaskmanagment-server.onrender.com/api/managers/${manager._id}`,
+        `https://rj-task-managment-server.vercel.app/api/managers/${manager._id}`,
         form
       );
       alert("Manager updated successfully!");

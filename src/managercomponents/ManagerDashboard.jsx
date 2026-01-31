@@ -75,15 +75,10 @@
 
 import React, { useState } from "react";
 import "../admincomponents/AdminDashboard.css"; // Assuming you have a CSS file for styles
-
-
-
 import ManagerAssignList from "./ManagerAssignList";
-
 import ManagerTaskAssignList from "./ManagerTaskAssignList";
 import ManagerReports from "./ManagerReports";
 import CompanyTaskReport from "../admincomponents/CompanyTaskReport";
-import Accounts from "./Accounts";
 import Billreport from "../admincomponents/Billreport";
 import BillSectionPage from "../admincomponents/Billsection";
 
@@ -92,8 +87,7 @@ const NAV_ITEMS = [
   { key: "dashboard", label: "Dashboard" },
   { key: "task", label: "Task" },
   { key: "overallcompanytask", label: "OverAll Company Task" },
-  
-    // { key: "accounts", label: "Account" },
+     // { key: "accounts", label: "Account" },
     {
     key: "accounts",
     label: "Accounts",
@@ -273,38 +267,25 @@ function ManagerDashboard() {
                 </div>
                  {/* Charts */}
       <div className="row g-3">
-        
-<ManagerAssignList />
-       
-      </div>
-              </div>
-
-              
+        <ManagerAssignList />
+       </div>
+        </div>
             )}
 
-  
-
-
-            {active === "task" && (
+             {active === "task" && (
            <ManagerTaskAssignList />
             )}
 
              {active === "overallcompanytask" && (
            <CompanyTaskReport />
             )}
-
-           
-
-              {/* SUBMENU SCREENS */}
-                          {active === "billsection" && <BillSectionPage />}
-                          {active === "billreport" && <Billreport />}
+          {/* SUBMENU SCREENS */}
+            {active === "billsection" && <BillSectionPage />}
+            {active === "billreport" && <Billreport />}
 
             {active === "report" && (
              <ManagerReports />
             )}
-
-            
-
             {active === "reports" && (
               <div className="card">
                 <div className="card-body">

@@ -10,7 +10,7 @@ export default function BillSectionPage() {
   // Fetch all bill sections
   const fetchBillSections = async () => {
     try {
-      const res = await axios.get("https://rjtaskmanagment-server.onrender.com/api/billsection");
+      const res = await axios.get("https://rj-task-managment-server.vercel.app/api/billsection");
       setBillSections(res.data.bills);
     } catch (err) {
       console.error("Error fetching bill sections:", err);
@@ -24,7 +24,7 @@ export default function BillSectionPage() {
   // Fetch company list for dropdown
   const fetchCompanies = async () => {
     try {
-      const res = await axios.get("https://rjtaskmanagment-server.onrender.com/api/companies");
+      const res = await axios.get("https://rj-task-managment-server.vercel.app/api/companies");
       setCompanies(res.data);
     } catch (err) {
       console.error("Error fetching companies:", err);

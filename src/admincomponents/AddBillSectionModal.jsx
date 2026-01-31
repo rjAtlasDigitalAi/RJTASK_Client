@@ -117,7 +117,7 @@ export default function AddBillSectionModal({ companies, onClose, onSave }) {
 
   const handleSubmit = async () => {
     try {
-      await axios.post("https://rjtaskmanagment-server.onrender.com/api/billsection", form);
+      await axios.post("https://rj-task-managment-server.vercel.app/api/billsection", form);
       onSave();
       onClose();
     } catch (err) {

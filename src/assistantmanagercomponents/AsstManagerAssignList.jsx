@@ -95,7 +95,7 @@ const [searchName, setSearchName] = useState(""); // Task name filter
     if (!assistantManager) return;
 
     axios
-      .get(`https://rjtaskmanagment-server.onrender.com/api/tasks/user/${assistantManager.id}`, {
+      .get(`https://rj-task-managment-server.vercel.app/api/tasks/user/${assistantManager.id}`, {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((res) => {
@@ -109,7 +109,7 @@ const [searchName, setSearchName] = useState(""); // Task name filter
   const handleStatusChange = async (taskId, newStatus) => {
     try {
       await axios.put(
-        `https://rjtaskmanagment-server.onrender.com/api/tasks/${taskId}`,
+        `https://rj-task-managment-server.vercel.app/api/tasks/${taskId}`,
         { status: newStatus },
         { headers: { Authorization: `Bearer ${token}` } }
       );

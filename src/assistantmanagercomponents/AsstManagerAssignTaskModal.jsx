@@ -426,7 +426,7 @@ function AsstManagerTaskAssignList() {
       }
 
       const res = await axios.get(
-        "https://rjtaskmanagment-server.onrender.com/api/tasks/tasks"
+        "https://rj-task-managment-server.vercel.app/api/tasks/tasks"
       );
 
       const filteredTasks = res.data.filter(
@@ -462,7 +462,7 @@ function AsstManagerTaskAssignList() {
 
     try {
       await axios.delete(
-        `https://rjtaskmanagment-server.onrender.com/api/tasks/${id}`
+        `https://rj-task-managment-server.vercel.app/api/tasks/${id}`
       );
       fetchTasks();
     } catch (err) {

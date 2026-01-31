@@ -21,7 +21,7 @@ const StaffLogin = () => {
     setMessage('');
    setLoading(true);
     try {
-      const res = await axios.post('https://rjtaskmanagment-server.onrender.com/api/auth/login', formData);
+      const res = await axios.post('https://rj-task-managment-server.vercel.app/api/auth/login', formData);
       const { token, user } = res.data;
 
       if (user.status === 'blocked') {

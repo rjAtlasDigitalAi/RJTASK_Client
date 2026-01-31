@@ -71,7 +71,6 @@
 //   );
 // }
 
-
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import {
@@ -95,7 +94,7 @@ export default function ManagerAssignList() {
     if (!manager) return;
 
     axios
-      .get(`https://rjtaskmanagment-server.onrender.com/api/tasks/user/${manager.id}`, {
+      .get(`https://rj-task-managment-server.vercel.app/api/tasks/user/${manager.id}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -110,7 +109,7 @@ export default function ManagerAssignList() {
   const handleStatusChange = async (taskId, newStatus) => {
     try {
       await axios.put(
-        `https://rjtaskmanagment-server.onrender.com/api/tasks/${taskId}`,
+        `https://rj-task-managment-server.vercel.app/api/tasks/${taskId}`,
         { status: newStatus },
         { headers: { Authorization: `Bearer ${token}` } }
       );

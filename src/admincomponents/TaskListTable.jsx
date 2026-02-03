@@ -17,7 +17,7 @@ function TaskListTable() {
    const [searchQuery, setSearchQuery] = useState("");
    const [isEditModalOpen, setIsEditModalOpen] = useState(false);
 const [selectedTask, setSelectedTask] = useState(null);
-  const [filterDate, setFilterDate] = useState("");
+  // const [filterDate, setFilterDate] = useState("");
   // Fetch tasks
   
  const [startDate, setStartDate] = useState("");

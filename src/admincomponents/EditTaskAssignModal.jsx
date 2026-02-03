@@ -19,7 +19,7 @@ function EditTaskAssignModal({ isOpen, onClose, onUpdated, taskData: task }) {
   const [companies, setCompanies] = useState([]);
   const [loading, setLoading] = useState(false);
 
-  const loggedUser = JSON.parse(localStorage.getItem("user"));
+  // const loggedUser = JSON.parse(localStorage.getItem("user"));
 
   // ✅ Load existing task data into form
   useEffect(() => {

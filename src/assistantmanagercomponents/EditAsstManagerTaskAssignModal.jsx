@@ -1,8 +1,231 @@
+// import React, { useState, useEffect } from "react";
+// import axios from "axios";
+// // import "./AsstManagerTaskAssignModal.css"; // reuse same CSS
+
+// function EditAsstManagerTaskAssignModal({ isOpen, onClose, onUpdated, taskData }) {
+//   const [form, setForm] = useState({
+//     taskName: "",
+//     description: "",
+//     scheduledTime: "",
+//     role: "",
+//     assignedTo: "",
+//     assignedBy: "",
+//     status: "pending",
+//     repeat: "once",
+//     company: { id: "", name: "" },
+//   });
+
+//   const [users, setUsers] = useState([]);
+//   const [companies, setCompanies] = useState([]);
+//   const [loading, setLoading] = useState(false);
+//   const loggedUser = JSON.parse(localStorage.getItem("assistantManager"));
+
+//   // Pre-fill task data
+//   useEffect(() => {
+//     if (taskData) {
+//       setForm({
+//         taskName: taskData.taskName || "",
+//         description: taskData.description || "",
+//         scheduledTime: taskData.scheduledTime
+//           ? new Date(taskData.scheduledTime).toISOString().slice(0, 16)
+//           : "",
+//         role: taskData.role || "",
+//         assignedTo: taskData.assignedTo?._id || "",
+//         assignedBy: taskData.assignedBy || loggedUser?.id || "",
+//         status: taskData.status || "pending",
+//         repeat: taskData.repeat || "once",
+//         company: {
+//           id: taskData.company?.id || "",
+//           name: taskData.company?.name || "",
+//         },
+//       });
+//     }
+//   }, [taskData]);
+
+//   // Fetch companies
+//   useEffect(() => {
+//     if (!isOpen) return;
+//     const fetchCompanies = async () => {
+//       try {
+//         const res = await axios.get("https://rj-task-managment-server.vercel.app/api/companies");
+//         setCompanies(res.data);
+//       } catch (err) {
+//         console.error("Error fetching companies:", err);
+//       }
+//     };
+//     fetchCompanies();
+//   }, [isOpen]);
+
+//   // Fetch users based on role
+//   useEffect(() => {
+//     if (form.role) {
+//       if (form.role === "myself" && loggedUser) {
+//         setForm((prev) => ({ ...prev, assignedTo: loggedUser.id }));
+//         setUsers([]);
+//         return;
+//       }
+
+//       let endpoint = "";
+//       if (form.role === "manager") endpoint = "/api/managers";
+//       else if (form.role === "assistantmanager") endpoint = "/api/assistant-managers";
+//       else if (form.role === "staff") endpoint = "/api/auth";
+
+//       if (endpoint) {
+//         axios
+//           .get(`https://rj-task-managment-server.vercel.app${endpoint}`)
+//           .then((res) => setUsers(res.data))
+//           .catch((err) => console.error("Error fetching users:", err));
+//       }
+//     }
+//   }, [form.role]);
+
+//   // Handle change
+//   const handleChange = (e) => {
+//     const { name, value } = e.target;
+//     if (name === "company") {
+//       const selectedCompany = companies.find((c) => c._id === value);
+//       setForm((prev) => ({
+//         ...prev,
+//         company: { id: selectedCompany._id, name: selectedCompany.name },
+//       }));
+//     } else {
+//       setForm((prev) => ({ ...prev, [name]: value }));
+//     }
+//   };
+
+//   // Submit handler
+//   const handleSubmit = async (e) => {
+//     e.preventDefault();
+//     setLoading(true);
+//     try {
+//       await axios.put(
+//         `https://rj-task-managment-server.vercel.app/api/tasks/${taskData._id}`,
+//         form
+//       );
+//       alert("Task updated successfully!");
+//       if (onUpdated) onUpdated();
+//       onClose();
+//     } catch (err) {
+//       console.error("Error updating task:", err);
+//       alert("Failed to update task");
+//     } finally {
+//       setLoading(false);
+//     }
+//   };
+
+//   if (!isOpen) return null;
+
+//   return (
+//     <div className="modal-overlay">
+//       <div className="modal-content">
+//         <h2>Edit Task</h2>
+//         <form onSubmit={handleSubmit} className="modal-form">
+//           <input
+//             type="text"
+//             name="taskName"
+//             placeholder="Task Name"
+//             value={form.taskName}
+//             onChange={handleChange}
+//             required
+//           />
+
+//           <textarea
+//             name="description"
+//             placeholder="Task Description"
+//             value={form.description}
+//             onChange={handleChange}
+//           />
+
+//           <input
+//             type="datetime-local"
+//             name="scheduledTime"
+//             value={form.scheduledTime}
+//             onChange={handleChange}
+//             required
+//           />
+
+//           <select name="company" value={form.company.id} onChange={handleChange} required>
+//             <option value="">Select Company</option>
+//             {companies.map((c) => (
+//               <option key={c._id} value={c._id}>
+//                 {c.name}
+//               </option>
+//             ))}
+//           </select>
+
+//           <select name="role" value={form.role} onChange={handleChange} required>
+//             <option value="">Select Role</option>
+//             <option value="myself">Myself</option>
+//             <option value="staff">Staff</option>
+//           </select>
+
+//           {form.role !== "" && form.role !== "myself" && (
+//             <select
+//               name="assignedTo"
+//               value={form.assignedTo}
+//               onChange={handleChange}
+//               required
+//             >
+//               <option value="">Select {form.role}</option>
+//               {users.map((u) => (
+//                 <option key={u._id} value={u._id}>
+//                   {u.name}
+//                 </option>
+//               ))}
+//             </select>
+//           )}
+
+//           <select name="status" value={form.status} onChange={handleChange}>
+//             <option value="pending">Pending</option>
+//             <option value="in-progress">In Progress</option>
+//             <option value="completed">Completed</option>
+//           </select>
+
+//           <select name="repeat" value={form.repeat} onChange={handleChange}>
+//             <option value="once">Once</option>
+//             <option value="daily">Daily</option>
+//             <option value="weekly">Weekly</option>
+//             <option value="monthly">Monthly</option>
+//             <option value="yearly">Yearly</option>
+//           </select>
+
+//           <input
+//             type="text"
+//             name="assignedBy"
+//             value={loggedUser?.role || ""}
+//             readOnly
+//             className="readonly-field"
+//             placeholder="Assigned By"
+//           />
+
+//           <div className="modal-actions">
+//             <button type="submit" className="save-btn" disabled={loading}>
+//               {loading ? <div className="spinner"></div> : "Update Task"}
+//             </button>
+//             <button type="button" className="cancel-btn" onClick={onClose}>
+//               Cancel
+//             </button>
+//           </div>
+//         </form>
+//       </div>
+//     </div>
+//   );
+// }
+
+// export default EditAsstManagerTaskAssignModal;
+
+
+
+
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-// import "./AsstManagerTaskAssignModal.css"; // reuse same CSS
 
-function EditAsstManagerTaskAssignModal({ isOpen, onClose, onUpdated, taskData }) {
+function EditAsstManagerTaskAssignModal({
+  isOpen,
+  onClose,
+  onUpdated,
+  taskData,
+}) {
   const [form, setForm] = useState({
     taskName: "",
     description: "",
@@ -18,72 +241,91 @@ function EditAsstManagerTaskAssignModal({ isOpen, onClose, onUpdated, taskData }
   const [users, setUsers] = useState([]);
   const [companies, setCompanies] = useState([]);
   const [loading, setLoading] = useState(false);
-  const loggedUser = JSON.parse(localStorage.getItem("assistantManager"));
 
-  // Pre-fill task data
+  // ✅ make loggedUser stable
+  const [loggedUser] = useState(() =>
+    JSON.parse(localStorage.getItem("assistantManager"))
+  );
+
+  /* --------------------------------------------------
+     Pre-fill task data
+  -------------------------------------------------- */
   useEffect(() => {
-    if (taskData) {
-      setForm({
-        taskName: taskData.taskName || "",
-        description: taskData.description || "",
-        scheduledTime: taskData.scheduledTime
-          ? new Date(taskData.scheduledTime).toISOString().slice(0, 16)
-          : "",
-        role: taskData.role || "",
-        assignedTo: taskData.assignedTo?._id || "",
-        assignedBy: taskData.assignedBy || loggedUser?.id || "",
-        status: taskData.status || "pending",
-        repeat: taskData.repeat || "once",
-        company: {
-          id: taskData.company?.id || "",
-          name: taskData.company?.name || "",
-        },
-      });
-    }
-  }, [taskData]);
+    if (!taskData) return;
 
-  // Fetch companies
+    setForm({
+      taskName: taskData.taskName || "",
+      description: taskData.description || "",
+      scheduledTime: taskData.scheduledTime
+        ? new Date(taskData.scheduledTime).toISOString().slice(0, 16)
+        : "",
+      role: taskData.role || "",
+      assignedTo: taskData.assignedTo?._id || "",
+      assignedBy: taskData.assignedBy || loggedUser?.id || "",
+      status: taskData.status || "pending",
+      repeat: taskData.repeat || "once",
+      company: {
+        id: taskData.company?.id || "",
+        name: taskData.company?.name || "",
+      },
+    });
+  }, [taskData, loggedUser]);
+
+  /* --------------------------------------------------
+     Fetch companies when modal opens
+  -------------------------------------------------- */
   useEffect(() => {
     if (!isOpen) return;
+
     const fetchCompanies = async () => {
       try {
-        const res = await axios.get("https://rj-task-managment-server.vercel.app/api/companies");
+        const res = await axios.get(
+          "https://rj-task-managment-server.vercel.app/api/companies"
+        );
         setCompanies(res.data);
       } catch (err) {
         console.error("Error fetching companies:", err);
       }
     };
+
     fetchCompanies();
   }, [isOpen]);
 
-  // Fetch users based on role
+  /* --------------------------------------------------
+     Fetch users based on role
+  -------------------------------------------------- */
   useEffect(() => {
-    if (form.role) {
-      if (form.role === "myself" && loggedUser) {
-        setForm((prev) => ({ ...prev, assignedTo: loggedUser.id }));
-        setUsers([]);
-        return;
-      }
+    if (!form.role) return;
 
-      let endpoint = "";
-      if (form.role === "manager") endpoint = "/api/managers";
-      else if (form.role === "assistantmanager") endpoint = "/api/assistant-managers";
-      else if (form.role === "staff") endpoint = "/api/auth";
-
-      if (endpoint) {
-        axios
-          .get(`https://rj-task-managment-server.vercel.app${endpoint}`)
-          .then((res) => setUsers(res.data))
-          .catch((err) => console.error("Error fetching users:", err));
-      }
+    if (form.role === "myself" && loggedUser) {
+      setForm((prev) => ({ ...prev, assignedTo: loggedUser.id }));
+      setUsers([]);
+      return;
     }
-  }, [form.role]);
 
-  // Handle change
+    let endpoint = "";
+    if (form.role === "staff") endpoint = "/api/auth";
+
+    if (endpoint) {
+      axios
+        .get(`https://rj-task-managment-server.vercel.app${endpoint}`)
+        .then((res) => setUsers(res.data))
+        .catch((err) => console.error("Error fetching users:", err));
+    } else {
+      setUsers([]);
+    }
+  }, [form.role, loggedUser]);
+
+  /* --------------------------------------------------
+     Handle input change
+  -------------------------------------------------- */
   const handleChange = (e) => {
     const { name, value } = e.target;
+
     if (name === "company") {
       const selectedCompany = companies.find((c) => c._id === value);
+      if (!selectedCompany) return;
+
       setForm((prev) => ({
         ...prev,
         company: { id: selectedCompany._id, name: selectedCompany.name },
@@ -93,17 +335,20 @@ function EditAsstManagerTaskAssignModal({ isOpen, onClose, onUpdated, taskData }
     }
   };
 
-  // Submit handler
+  /* --------------------------------------------------
+     Submit update
+  -------------------------------------------------- */
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
+
     try {
       await axios.put(
         `https://rj-task-managment-server.vercel.app/api/tasks/${taskData._id}`,
         form
       );
       alert("Task updated successfully!");
-      if (onUpdated) onUpdated();
+      onUpdated?.();
       onClose();
     } catch (err) {
       console.error("Error updating task:", err);
@@ -115,10 +360,14 @@ function EditAsstManagerTaskAssignModal({ isOpen, onClose, onUpdated, taskData }
 
   if (!isOpen) return null;
 
+  /* --------------------------------------------------
+     UI
+  -------------------------------------------------- */
   return (
     <div className="modal-overlay">
       <div className="modal-content">
         <h2>Edit Task</h2>
+
         <form onSubmit={handleSubmit} className="modal-form">
           <input
             type="text"
@@ -144,7 +393,13 @@ function EditAsstManagerTaskAssignModal({ isOpen, onClose, onUpdated, taskData }
             required
           />
 
-          <select name="company" value={form.company.id} onChange={handleChange} required>
+          {/* Company */}
+          <select
+            name="company"
+            value={form.company.id}
+            onChange={handleChange}
+            required
+          >
             <option value="">Select Company</option>
             {companies.map((c) => (
               <option key={c._id} value={c._id}>
@@ -153,20 +408,27 @@ function EditAsstManagerTaskAssignModal({ isOpen, onClose, onUpdated, taskData }
             ))}
           </select>
 
-          <select name="role" value={form.role} onChange={handleChange} required>
+          {/* Role */}
+          <select
+            name="role"
+            value={form.role}
+            onChange={handleChange}
+            required
+          >
             <option value="">Select Role</option>
             <option value="myself">Myself</option>
             <option value="staff">Staff</option>
           </select>
 
-          {form.role !== "" && form.role !== "myself" && (
+          {/* Assigned To */}
+          {form.role && form.role !== "myself" && (
             <select
               name="assignedTo"
               value={form.assignedTo}
               onChange={handleChange}
               required
             >
-              <option value="">Select {form.role}</option>
+              <option value="">Select Staff</option>
               {users.map((u) => (
                 <option key={u._id} value={u._id}>
                   {u.name}
@@ -175,13 +437,23 @@ function EditAsstManagerTaskAssignModal({ isOpen, onClose, onUpdated, taskData }
             </select>
           )}
 
-          <select name="status" value={form.status} onChange={handleChange}>
+          {/* Status */}
+          <select
+            name="status"
+            value={form.status}
+            onChange={handleChange}
+          >
             <option value="pending">Pending</option>
             <option value="in-progress">In Progress</option>
             <option value="completed">Completed</option>
           </select>
 
-          <select name="repeat" value={form.repeat} onChange={handleChange}>
+          {/* Repeat */}
+          <select
+            name="repeat"
+            value={form.repeat}
+            onChange={handleChange}
+          >
             <option value="once">Once</option>
             <option value="daily">Daily</option>
             <option value="weekly">Weekly</option>
@@ -189,9 +461,9 @@ function EditAsstManagerTaskAssignModal({ isOpen, onClose, onUpdated, taskData }
             <option value="yearly">Yearly</option>
           </select>
 
+          {/* Assigned By */}
           <input
             type="text"
-            name="assignedBy"
             value={loggedUser?.role || ""}
             readOnly
             className="readonly-field"
@@ -199,10 +471,10 @@ function EditAsstManagerTaskAssignModal({ isOpen, onClose, onUpdated, taskData }
           />
 
           <div className="modal-actions">
-            <button type="submit" className="save-btn" disabled={loading}>
-              {loading ? <div className="spinner"></div> : "Update Task"}
+            <button type="submit" disabled={loading}>
+              {loading ? "Updating..." : "Update Task"}
             </button>
-            <button type="button" className="cancel-btn" onClick={onClose}>
+            <button type="button" onClick={onClose}>
               Cancel
             </button>
           </div>

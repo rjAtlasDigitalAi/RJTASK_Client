@@ -452,7 +452,7 @@ export default function ManagerReport() {
   return (
     <div className="p-6">
       <h1 className="text-2xl font-bold text-center mb-6">
-        📋 Manager Task Report
+        📋 Manager Personal Task Report
       </h1>
 
       {/* Filters */}

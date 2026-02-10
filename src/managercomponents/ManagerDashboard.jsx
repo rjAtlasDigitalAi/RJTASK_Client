@@ -81,6 +81,7 @@ import ManagerReports from "./ManagerReports";
 import CompanyTaskReport from "../admincomponents/CompanyTaskReport";
 import Billreport from "../admincomponents/Billreport";
 import BillSectionPage from "../admincomponents/Billsection";
+import TaskReports from "../admincomponents/TaskReports";
 
 // Sidebar items
 const NAV_ITEMS = [
@@ -97,7 +98,7 @@ const NAV_ITEMS = [
     ],
   },
   { key: "report", label: "Report" },
-  
+  { key: "overallreport", label: "OverAllReport"},
 ];
 
 function ManagerDashboard() {
@@ -286,7 +287,10 @@ function ManagerDashboard() {
             {active === "report" && (
              <ManagerReports />
             )}
-            {active === "reports" && (
+              {active === "overallreport" && (
+             <TaskReports />
+            )}
+            {/* {active === "reports" && (
               <div className="card">
                 <div className="card-body">
                   <div className="card-title">Reports</div>
@@ -304,7 +308,7 @@ function ManagerDashboard() {
                   </div>
                 </div>
               </div>
-            )}
+            )} */}
           </div>
         </main>
       </div>

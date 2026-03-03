@@ -253,10 +253,10 @@ function PaidAddList() {
             <tr>
               <th>Company</th>
               <th>Date</th>
-              <th>Amount</th>
+              <th>Amount(₹)</th>
               <th>Type</th>
               <th>Result</th>
-              <th>Cost per Result</th>
+              <th>Cost per Result(₹)</th>
               {/* <th>Platform</th> */}
               <th>Total Msg</th>
               <th>New Msg</th>
@@ -273,7 +273,7 @@ function PaidAddList() {
                   <td>₹{ad.amountPaid}</td>
                   <td>{ad.type}</td>
                   <td>{ad.result}</td>
-                  <td>{ad.costperResult}</td>
+                  <td>₹{ad.costperResult}</td>
                   {/* <td>{ad.platform}</td> */}
                   <td>{ad.totalMessages}</td>
                   <td>{ad.newMessages}</td>

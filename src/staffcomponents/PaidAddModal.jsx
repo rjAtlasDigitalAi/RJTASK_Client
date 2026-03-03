@@ -143,7 +143,9 @@ function PaidAddModal({ isOpen, onClose, onSave }) {
     date: "",
     amountPaid: "",
     type: "",
-    platform: "",
+    // platform: "",
+    result:"",
+    costperResult:"",
     totalMessages: "",
     newMessages: "",
   });
@@ -155,7 +157,9 @@ function PaidAddModal({ isOpen, onClose, onSave }) {
         date: "",
         amountPaid: "",
         type: "",
-        platform: "",
+        // platform: "",
+        result:"",
+        costperResult:"",
         totalMessages: "",
         newMessages: "",
       });
@@ -232,7 +236,7 @@ function PaidAddModal({ isOpen, onClose, onSave }) {
             <option value="lead">Lead</option>
           </select>
 
-          <select
+          {/* <select
             name="platform"
             value={form.platform}
             onChange={handleChange}
@@ -241,7 +245,27 @@ function PaidAddModal({ isOpen, onClose, onSave }) {
             <option value="">Select Platform</option>
             <option value="facebook">Facebook</option>
             <option value="instagram">Instagram</option>
-          </select>
+          </select> */}
+
+            
+             <input
+            type="number"
+            name="result"
+            placeholder="result"
+            value={form.result}
+            onChange={handleChange}
+            required
+          />
+
+           <input
+            type="number"
+            name="costperResult"
+            placeholder="cost per result"
+            value={form.costperResult}
+            onChange={handleChange}
+            required
+          />
+
 
           <input
             type="number"

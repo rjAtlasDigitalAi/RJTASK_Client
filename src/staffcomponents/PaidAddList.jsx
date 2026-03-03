@@ -160,7 +160,9 @@ function PaidAddList() {
         Date: ad.date?.substring(0, 10),
         Amount: ad.amountPaid,
         Type: ad.type,
-        Platform: ad.platform,
+        // Platform: ad.platform,
+        result:ad.result,
+        costperResult:ad.costperResult,
         "Total Messages": ad.totalMessages,
         "New Messages": ad.newMessages,
       }))
@@ -180,7 +182,8 @@ function PaidAddList() {
     "Date",
     "Amount",
     "Type",
-    "Platform",
+   "result",
+   "cost per result",
     "Total Msg",
     "New Msg",
   ];
@@ -193,7 +196,9 @@ function PaidAddList() {
       ad.date?.substring(0, 10),
       `₹${ad.amountPaid}`,
       ad.type,
-      ad.platform,
+      ad.result,
+      ad.costperResult,
+    //   ad.platform,
       ad.totalMessages,
       ad.newMessages,
     ]);
@@ -250,7 +255,9 @@ function PaidAddList() {
               <th>Date</th>
               <th>Amount</th>
               <th>Type</th>
-              <th>Platform</th>
+              <th>Result</th>
+              <th>Cost per Result</th>
+              {/* <th>Platform</th> */}
               <th>Total Msg</th>
               <th>New Msg</th>
               <th>Action</th>
@@ -265,7 +272,9 @@ function PaidAddList() {
                   <td>{ad.date?.substring(0, 10)}</td>
                   <td>₹{ad.amountPaid}</td>
                   <td>{ad.type}</td>
-                  <td>{ad.platform}</td>
+                  <td>{ad.result}</td>
+                  <td>{ad.costperResult}</td>
+                  {/* <td>{ad.platform}</td> */}
                   <td>{ad.totalMessages}</td>
                   <td>{ad.newMessages}</td>
                   <td>

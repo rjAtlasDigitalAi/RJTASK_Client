@@ -139,3 +139,73 @@
     font-size: 13px;
   }
 }
+
+
+.paid-container {
+  padding: 30px;
+  font-family: Arial, sans-serif;
+}
+
+.paid-container h1 {
+  margin-bottom: 20px;
+}
+
+.table-wrapper {
+  overflow-x: auto;
+}
+
+.paid-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.paid-table th,
+.paid-table td {
+  border: 1px solid #ddd;
+  padding: 10px;
+  text-align: center;
+}
+
+.paid-table th {
+  background-color: #1976d2;
+  color: white;
+}
+
+.add-btn {
+  background-color: #1976d2;
+  color: white;
+  padding: 8px 14px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.add-btn:hover {
+  background-color: #125aa0;
+}
+
+.delete-btn {
+  background-color: #d32f2f;
+  color: white;
+  padding: 6px 10px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.delete-btn:hover {
+  background-color: #9a0007;
+}
+
+.export-btn {
+  background-color: #2e7d32;
+  color: white;
+  padding: 8px 14px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.export-btn:hover {
+  background-color: #1b5e20;
+}

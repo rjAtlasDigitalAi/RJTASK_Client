@@ -85,12 +85,14 @@ import "../admincomponents/AdminDashboard.css"; // Assuming you have a CSS file 
 import AsstManagerAssignList from "./AsstManagerAssignList";
 import AsstManagerTaskAssignList from "./AsstManagerAssignTaskModal";
 import AssistantManagerReport from "./AssistantManagerReport";
+import PaidAddList from "../staffcomponents/PaidAddList";
 
 
 // Sidebar items
 const NAV_ITEMS = [
   { key: "dashboard", label: "Dashboard" },
   { key: "task", label: "Task" },
+  { key: "paidads", label: "Paid Ads" },
   { key: "report", label: "Report" },
  
 ];
@@ -251,6 +253,11 @@ function AdminDashboard() {
             {active === "task" && (
            <AsstManagerTaskAssignList />
             )}
+
+             {active === "paidads" && (
+           <PaidAddList />
+            )}
+
 
           
 

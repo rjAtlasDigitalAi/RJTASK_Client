@@ -1,0 +1,141 @@
+/* Container */
+.paid-container {
+  max-width: 1200px;
+  margin: 30px auto;
+  padding: 25px;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Heading */
+.paid-container h1 {
+  font-size: 24px;
+  font-weight: 600;
+  color: #222;
+  margin-bottom: 20px;
+}
+
+/* Add Button */
+.add-btn {
+  background: linear-gradient(135deg, #007bff, #0056b3);
+  color: #fff;
+  padding: 10px 18px;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.add-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 123, 255, 0.3);
+}
+
+/* Table Wrapper */
+.table-wrapper {
+  margin-top: 20px;
+  overflow-x: auto;
+}
+
+/* Table */
+.paid-table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 900px;
+  background: #fff;
+}
+
+/* Table Header */
+.paid-table thead {
+  background: #f8f9fa;
+}
+
+.paid-table th {
+  padding: 12px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #444;
+  text-align: center;
+  border-bottom: 2px solid #eaeaea;
+}
+
+/* Table Body */
+.paid-table td {
+  padding: 12px;
+  font-size: 13px;
+  text-align: center;
+  border-bottom: 1px solid #f0f0f0;
+  color: #555;
+}
+
+/* Row Hover */
+.paid-table tbody tr:hover {
+  background: #f9fbff;
+  transition: background 0.2s ease;
+}
+
+/* Amount Styling */
+.paid-table td:nth-child(3) {
+  font-weight: 600;
+  color: #28a745;
+}
+
+/* Type Badge */
+.paid-table td:nth-child(4) {
+  font-weight: 500;
+  text-transform: capitalize;
+}
+
+/* Platform Styling */
+.paid-table td:nth-child(5) {
+  text-transform: capitalize;
+}
+
+/* Delete Button */
+.delete-btn {
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 12px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.delete-btn:hover {
+  background-color: #b02a37;
+}
+
+/* Empty Message */
+.paid-table td[colspan="8"] {
+  padding: 20px;
+  font-weight: 500;
+  color: #888;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .paid-container {
+    padding: 15px;
+  }
+
+  .paid-container h1 {
+    font-size: 20px;
+  }
+
+  .paid-table th,
+  .paid-table td {
+    font-size: 12px;
+    padding: 10px;
+  }
+
+  .add-btn {
+    padding: 8px 14px;
+    font-size: 13px;
+  }
+}

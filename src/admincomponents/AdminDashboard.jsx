@@ -21,6 +21,7 @@ import CompanyReport from "./CompanyReport.jsx";
 import CompanyTaskReport from "./CompanyTaskReport.jsx";
 import BillSectionPage from "./Billsection.jsx";
 import Billreport from "./Billreport.jsx";
+import PaidAddList from "../staffcomponents/PaidAddList.jsx";
 // Sidebar items
 const NAV_ITEMS = [
   { key: "dashboard", label: "Dashboard" },
@@ -29,6 +30,7 @@ const NAV_ITEMS = [
    { key: "assmanager", label: "Assistent Manager" },
   { key: "staff", label: "Staff" },
    { key: "department", label: "Department" },
+    { key: "paidads", label: "Paid Ads" },
    { key: "company", label: "Company" },
    { key: "hierarchy", label: "Hierarchy" },
     // { key: "accounts", label: "Account" },
@@ -235,6 +237,7 @@ function AdminDashboard() {
               {active === "assmanager" && <AssistantManagerList />}
               {active === "staff" && <StaffListTable />}
               {active === "department" && <DepartmentList />}
+               {active === "paidads" && <PaidAddList />}
               {active === "company" && <CompanyListTable />}
               {active === "hierarchy" && <HierarchyView />}
                {/* SUBMENU SCREENS */}

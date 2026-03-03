@@ -8,11 +8,13 @@ import StaffDashboard from "./StaffDashboard";
 
 
 import StaffTaskAssignList from "./StaffTaskAssignList";
+import PaidAddList from "./PaidAddList";
 
 // Sidebar items
 const NAV_ITEMS = [
   { key: "dashboard", label: "Dashboard" },
   { key: "task", label: "Task" },
+   { key: "paidadds", label: "Paid Ads" },
   { key: "report", label: "Report" },
   
 ];
@@ -307,6 +309,7 @@ function StaffSidebar() {
             )}
 
             {active === "task" && <StaffTaskAssignList/>}
+             {active === "paidadds" && <PaidAddList />}
             {active === "report" && <StaffReports />}
           </div>
         </main>

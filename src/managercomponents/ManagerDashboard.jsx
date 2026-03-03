@@ -82,11 +82,13 @@ import CompanyTaskReport from "../admincomponents/CompanyTaskReport";
 import Billreport from "../admincomponents/Billreport";
 import BillSectionPage from "../admincomponents/Billsection";
 import TaskReports from "../admincomponents/TaskReports";
+import PaidAddList from "../staffcomponents/PaidAddList";
 
 // Sidebar items
 const NAV_ITEMS = [
   { key: "dashboard", label: "Dashboard" },
   { key: "task", label: "Task" },
+   { key: "paidads", label: "Paid Ads" },
   { key: "overallcompanytask", label: "OverAll Company Task" },
      // { key: "accounts", label: "Account" },
     {
@@ -280,6 +282,10 @@ function ManagerDashboard() {
              {active === "overallcompanytask" && (
            <CompanyTaskReport />
             )}
+            
+             {active === "paidads" && (
+           <PaidAddList />
+            )}
           {/* SUBMENU SCREENS */}
             {active === "billsection" && <BillSectionPage />}
             {active === "billreport" && <Billreport />}
@@ -318,3 +324,5 @@ function ManagerDashboard() {
 
 // ✅ Exporting component
 export default ManagerDashboard;
+
+

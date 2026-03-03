@@ -100,7 +100,7 @@ function PaidAddList() {
 
   const fetchAds = async () => {
     try {
-      const res = await axios.get("http://localhost:3000/api/paid-ads");
+      const res = await axios.get("https://rj-task-managment-server.vercel.app/api/paid-ads");
       setAds(res.data);
     } catch (error) {
       console.error(error);
@@ -113,7 +113,7 @@ function PaidAddList() {
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`http://localhost:3000/api/paid-ads/${id}`);
+      await axios.delete(`https://rj-task-managment-server.vercel.app/api/paid-ads/${id}`);
       setAds(ads.filter((ad) => ad._id !== id));
     } catch (error) {
       console.error(error);

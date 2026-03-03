@@ -182,7 +182,7 @@ function PaidAddModal({ isOpen, onClose, onSave }) {
     }
 
     try {
-      const res = await axios.post("http://localhost:3000/api/paid-ads", form);
+      const res = await axios.post("https://rj-task-managment-server.vercel.app/api/paid-ads", form);
 
       onSave(res.data); // send saved data to list
       onClose();

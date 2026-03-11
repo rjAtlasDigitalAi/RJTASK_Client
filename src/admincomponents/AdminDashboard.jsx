@@ -22,6 +22,7 @@ import CompanyTaskReport from "./CompanyTaskReport.jsx";
 import BillSectionPage from "./Billsection.jsx";
 import Billreport from "./Billreport.jsx";
 import PaidAddList from "../staffcomponents/PaidAddList.jsx";
+import StaffPerformance from "./StaffPerformance.jsx";
 // Sidebar items
 const NAV_ITEMS = [
   { key: "dashboard", label: "Dashboard" },
@@ -29,6 +30,7 @@ const NAV_ITEMS = [
   { key: "manager", label: "Manager" },
    { key: "assmanager", label: "Assistent Manager" },
   { key: "staff", label: "Staff" },
+  { key: "perfomence", label: "Staff Perfomance" },
    { key: "department", label: "Department" },
     { key: "paidads", label: "Paid Ads" },
    { key: "company", label: "Company" },
@@ -236,6 +238,7 @@ function AdminDashboard() {
               {active === "manager" && <ManagerList />}
               {active === "assmanager" && <AssistantManagerList />}
               {active === "staff" && <StaffListTable />}
+              {active === "perfomence" && <StaffPerformance />}
               {active === "department" && <DepartmentList />}
                {active === "paidads" && <PaidAddList />}
               {active === "company" && <CompanyListTable />}
@@ -245,6 +248,7 @@ function AdminDashboard() {
               {active === "billreport" && <Billreport />}
               {active === "reports" && <TaskReports />}
               {active === "companyreports" && <CompanyReport />}
+
             </motion.div>
           </AnimatePresence>
         </main>

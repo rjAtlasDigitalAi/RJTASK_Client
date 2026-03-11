@@ -1,0 +1,135 @@
+.monthly-page{
+padding:40px;
+background:#f4f6fb;
+min-height:100vh;
+font-family:"Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Title */
+
+.monthly-title{
+text-align:center;
+font-size:28px;
+font-weight:700;
+margin-bottom:30px;
+
+color:#1f2937;
+}
+
+/* Chart Card */
+
+.chart-box{
+background:white;
+padding:25px;
+border-radius:12px;
+box-shadow:0 8px 20px rgba(0,0,0,0.08);
+margin-bottom:30px;
+}
+
+/* Table Card */
+
+.table-box{
+background:white;
+padding:30px;
+border-radius:12px;
+box-shadow:0 8px 20px rgba(0,0,0,0.08);
+}
+
+/* Wrapper for mobile scroll */
+
+.table-wrapper{
+width:100%;
+overflow-x:auto;
+}
+
+/* Table */
+
+.monthly-table{
+width:100%;
+border-collapse:collapse;
+margin-top:10px;
+border-radius:10px;
+overflow:hidden;
+}
+
+/* Table Header */
+
+.monthly-table thead{
+background:linear-gradient(135deg,#1f2937,#374151);
+}
+
+.monthly-table th{
+padding:14px 16px;
+text-align:center;
+font-size:14px;
+color:rgb(40, 39, 39);
+font-weight:600;
+}
+
+/* Table Body */
+
+.monthly-table td{
+padding:14px 16px;
+text-align:center;
+font-size:14px;
+color:#374151;
+}
+
+/* Row border */
+
+.monthly-table tbody tr{
+border-bottom:1px solid #e5e7eb;
+}
+
+/* Zebra rows */
+
+.monthly-table tbody tr:nth-child(even){
+background:#f9fafb;
+}
+
+/* Hover */
+
+.monthly-table tbody tr:hover{
+background:#eef2ff;
+transition:all 0.25s ease;
+}
+
+/* Performance */
+
+.perf{
+font-weight:700;
+color:#16a34a;
+}
+
+/* No Data */
+
+.no-data{
+text-align:center;
+padding:25px;
+font-weight:500;
+color:#6b7280;
+}
+
+/* Responsive */
+
+@media (max-width:768px){
+
+.monthly-page{
+padding:20px;
+}
+
+.monthly-title{
+font-size:22px;
+}
+
+.table-box{
+padding:15px;
+}
+
+.monthly-table th,
+.monthly-table td{
+font-size:12px;
+padding:10px;
+}
+
+}

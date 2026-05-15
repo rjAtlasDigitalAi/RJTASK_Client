@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import './StaffLogin.css';
-import taskimage1 from '../utils/Taskmanagment1.png';
+
 export default function AsstManagerLogin() {
   const navigate = useNavigate();
   const [form, setForm] = useState({ email: "", password: "" });

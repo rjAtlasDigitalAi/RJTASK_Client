@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import taskimage from '../utils/Taskmanagment.png';
 import './StaffLogin.css';
 const StaffLogin = () => {
   const [formData, setFormData] = useState({ email: '', password: '' });

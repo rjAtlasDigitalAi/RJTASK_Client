@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import './StaffLogin.css';
-import taskimage2 from '../utils/Taskmanagment2.png';
 export default function ManagerLogin() {
   const navigate = useNavigate();
   const [form, setForm] = useState({ email: "", password: "" });

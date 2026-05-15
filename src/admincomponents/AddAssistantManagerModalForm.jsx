@@ -33,7 +33,7 @@ useEffect(() => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post("https://rj-task-managment-server.vercel.app/api/assistant-managers", {
+      await axios.post("https://rjtask-server.vercel.app/api/assistant-managers", {
         ...form,
         role: "assistant_manager",
       });

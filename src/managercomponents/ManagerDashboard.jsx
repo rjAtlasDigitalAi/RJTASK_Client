@@ -1,76 +1,3 @@
-// import React, { useEffect, useState } from "react";
-// import axios from "axios";
-// // import "./ManagerDashboard.css";
-
-// export default function ManagerDashboard() {
-//   const [tasks, setTasks] = useState([]);
-//   const [loading, setLoading] = useState(true);
-
-//   const manager = JSON.parse(localStorage.getItem("manager"));
-//    // ✅ logged-in manager
-//   const token = localStorage.getItem("managerToken");
-
-//   useEffect(() => {
-//     if (!manager) return;
-
-//     // ✅ Fetch tasks based on manager's ID
-//     axios
-//       .get(`http://localhost:3000/api/tasks/user/${manager.id}`, {
-//         headers: {
-//           Authorization: `Bearer ${token}`, // ✅ secure API call
-//         },
-//       })
-//       .then((res) => {
-//         setTasks(res.data);
-//       })
-//       .catch((err) => {
-//         console.error("Error fetching manager tasks:", err);
-//       })
-//       .finally(() => setLoading(false));
-//   }, [manager, token]);
-
-//   if (!manager) {
-//     return <p className="no-login">Please login as a manager first.</p>;
-//   }
-
-//   console.log("Manager tasksssssssss:", tasks);
-  
-//   return (
-//     <div className="manager-dashboard">
-//       <h2 className="dashboard-title">Welcome, {manager.email}</h2>
-
-//       {loading ? (
-//         <p className="loading-text">Loading tasks...</p>
-//       ) : tasks.length === 0 ? (
-//         <p className="no-task-text">No tasks assigned to you.</p>
-//       ) : (
-//         <table className="task-table">
-//           <thead>
-//             <tr>
-//               <th>Task Name</th>
-//               <th>Description</th>
-//               <th>Scheduled Time</th>
-//               <th>Assigned By</th>
-//               <th>Status</th>
-//             </tr>
-//           </thead>
-//           <tbody>
-//             {tasks.map((task) => (
-//               <tr key={task._id}>
-//                 <td>{task.taskName}</td>
-//                 <td>{task.description}</td>
-//                 <td>{new Date(task.scheduledTime).toLocaleString()}</td>
-//                 <td>{task.assignedBy}</td>
-//                 <td>{task.status || "Pending"}</td>
-//               </tr>
-//             ))}
-//           </tbody>
-//         </table>
-//       )}
-//     </div>
-//   );
-// }
-
 
 
 import React, { useState } from "react";
@@ -120,38 +47,6 @@ function ManagerDashboard() {
       setIsOpen(false);
       setOpenSubmenu(null);
     };
-//  const [userGraph, setUserGraph] = useState([]);
-//   const [orderGraph, setOrderGraph] = useState([]);
-
-
-    // 👇 States for dashboard stats
-  // const [stats, setStats] = useState({ userCount: 0, orderCount: 0 });
-
-//   useEffect(() => {
-
-//     axios.get("https://smith-server-qpxw.vercel.app/api/dashboard/user-graph").then(res => setUserGraph(res.data));
-//     axios.get("https://smith-server-qpxw.vercel.app/api/dashboard/order-graph").then(res => setOrderGraph(res.data));
-
-//     const fetchStats = async () => {
-//       try {
-//         const res = await axios.get("https://smith-server-qpxw.vercel.app/api/dashboard/stats");
-//         if (res.data.success) {
-//           setStats(res.data.data);
-//         }
-//       } catch (error) {
-//         console.error("Error fetching dashboard stats", error);
-//       }
-//     };
-//     fetchStats();
-//   }, []);
-
-    // const formatData = (data) =>
-    // data.map((d) => ({
-    //   month: new Date(2025, d._id - 1).toLocaleString("default", { month: "short" }),
-    //   count: d.count,
-    // }));
-
-  
 
 
   return (
@@ -241,24 +136,7 @@ function ManagerDashboard() {
             {/* Sections */}
             {active === "dashboard" && (
               <div className="row g-3">
-                {/* <div className="col-md-6 col-xl-3">
-                  <div className="card h-100">
-                    <div className="card-body">
-                      <div className="card-title">Users</div>
-                      <div className="display-6">{stats.userCount}</div>
-                    
-                    </div>
-                  </div>
-                </div> */}
-                {/* <div className="col-md-6 col-xl-3">
-                  <div className="card h-100">
-                    <div className="card-body">
-                      <div className="card-title">Orders</div>
-                      <div className="display-6">{stats.orderCount}</div>
-                      
-                    </div>
-                  </div>
-                </div> */}
+                
                 <div className="col-12 col-xl-6">
                   <div className="card h-100">
                     <div className="card-body">
@@ -302,25 +180,7 @@ function ManagerDashboard() {
               {active === "overallreport" && (
              <TaskReports />
             )}
-            {/* {active === "reports" && (
-              <div className="card">
-                <div className="card-body">
-                  <div className="card-title">Reports</div>
-                  <div className="row g-3">
-                    <div className="col-md-6">
-                      <div className="border rounded p-3">
-                        Sales Report (placeholder)
-                      </div>
-                    </div>
-                    <div className="col-md-6">
-                      <div className="border rounded p-3">
-                        Traffic Report (placeholder)
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            )} */}
+            
           </div>
         </main>
       </div>

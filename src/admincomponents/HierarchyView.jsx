@@ -6,7 +6,7 @@ export default function HierarchyView() {
   const [treeData, setTreeData] = useState([]);
 
   useEffect(() => {
-    axios.get("https://rj-task-managment-server.vercel.app/api/auth/hierarchy")
+    axios.get("https://rjtask-server.vercel.app/api/auth/hierarchy")
       .then((res) => setTreeData(res.data))
       .catch((err) => console.error("Error fetching hierarchy:", err));
   }, []);
@@ -20,16 +20,7 @@ export default function HierarchyView() {
   );
 
   return (
-    // <div className="p-6">
-    //   <h1 className="text-2xl font-bold text-center mb-6">Company Hierarchy</h1>
-    //   <Tree
-    //     lineWidth={"2px"}
-    //     lineColor={"#ccc"}
-    //     label={<div className="p-2 bg-blue-500 text-white rounded shadow">Admin Root</div>}
-    //   >
-    //     {treeData.map((admin) => renderTree(admin))}
-    //   </Tree>
-    // </div>
+ 
 
     <div className="p-4 sm:p-6">
   <h1 className="text-xl sm:text-2xl font-bold text-center mb-4 sm:mb-6">

@@ -39,7 +39,7 @@ const [endDate, setEndDate] = useState("");
 
   const fetchReports = async () => {
     try {
-      const res = await axios.get("https://rj-task-managment-server.vercel.app/api/tasks/reports");
+      const res = await axios.get("https://rjtask-server.vercel.app/api/tasks/reports");
       setReport(res.data);
     } catch (err) {
       console.error("❌ Error fetching reports:", err);
@@ -50,7 +50,7 @@ const [endDate, setEndDate] = useState("");
 
   const fetchTasks = async () => {
     try {
-      const res = await axios.get("https://rj-task-managment-server.vercel.app/api/tasks/tasks");
+      const res = await axios.get("https://rjtask-server.vercel.app/api/tasks/tasks");
       setTasks(res.data);
       console.log("Fetched taskssssssss:", res.data);
     } catch (err) {
@@ -76,27 +76,6 @@ const [endDate, setEndDate] = useState("");
     name: user.name,
     value: user.count,
   }));
-
-  
-// const filteredTasks = tasks.filter((t) => {
-//   const matchesSearch =
-//     t.taskName?.toLowerCase().includes(searchQuery.toLowerCase()) ||
-//     t.company?.name?.toLowerCase().includes(searchQuery.toLowerCase());
-
-//   const matchesDate = filterDate
-//     ? new Date(t.createdAt).toISOString().split("T")[0] === filterDate
-//     : true;
-
-//      const matchesRole = roleFilter
-//       ? t.role?.toLowerCase() === roleFilter.toLowerCase()
-//       : true;
-
-//   return matchesSearch && matchesDate && matchesRole; // ✅ Ensure BOTH search & date match
-// });
-
-
-
- // ✅ Get unique names based on selected role
 
 
   const availableNames =
@@ -231,26 +210,6 @@ console.log(tasks,"taskssssssssssssssss");
     <div className="p-6">
       <h1 className="text-2xl font-bold text-center mb-6">📊 Task Reports</h1>
 
-      {/* Summary Cards */}
-      {/* <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-        <div className="bg-blue-100 p-4 rounded-xl shadow">
-          <h2 className="text-lg font-semibold text-blue-900">Total Tasks</h2>
-          <p className="text-2xl font-bold">{report.totalTasks}</p>
-        </div>
-        <div className="bg-yellow-100 p-4 rounded-xl shadow">
-          <h2 className="text-lg font-semibold text-yellow-900">Pending</h2>
-          <p className="text-2xl font-bold">
-            {report.statusCounts?.pending || 0}
-          </p>
-        </div>
-        <div className="bg-green-100 p-4 rounded-xl shadow">
-          <h2 className="text-lg font-semibold text-green-900">Completed</h2>
-          <p className="text-2xl font-bold">
-            {report.statusCounts?.completed || 0}
-          </p>
-        </div>
-      </div> */}
-
    <div className="container my-4">
   <div className="row g-3">
     {/* Total Tasks */}
@@ -353,28 +312,6 @@ console.log(tasks,"taskssssssssssssssss");
             onChange={(e) => setSearchQuery(e.target.value)}
           />
 
-   {/* <div className="d-flex gap-2" style={{marginLeft:"50px",paddingBottom:"20px"}}>
-  <div>
-    <label className="form-label">From Date</label>
-    <input
-      type="date"
-      value={startDate}
-      onChange={(e) => setStartDate(e.target.value)}
-      className="form-control"
-    />
-  </div>
-
-  <div>
-    <label className="form-label">To Date</label>
-    <input
-      type="date"
-      value={endDate}
-      onChange={(e) => setEndDate(e.target.value)}
-      className="form-control"
-    />
-  </div>
-</div> */}
-
 <div className="row g-3" style={{ marginLeft: "50px", paddingBottom: "20px" }}>
   <div className="col-12 col-md-6">
     <label className="form-label">From Date</label>
@@ -411,29 +348,7 @@ console.log(tasks,"taskssssssssssssssss");
   <option value="inprogress">In Progress</option>
 </select>
 
-          {/* Role Filter
-          <select
-            className="form-select w-50"
-            value={roleFilter}
-            onChange={(e) => setRoleFilter(e.target.value)}
-          >
-            <option value="">All Roles</option>
-            <option value="manager">Manager</option>
-            <option value="assistantmanager">Assistant Manager</option>
-            <option value="myself">Myself</option>
-          </select>
-
-          <button
-            className="btn btn-outline-secondary"
-            onClick={() => {
-              setSearchQuery("");
-              setFilterDate("");
-              setRoleFilter("");
-            }}
-          >
-            Clear Filters
-          </button> */}
-
+         
 
           {/* Role Filter */}
             <select

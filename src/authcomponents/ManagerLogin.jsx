@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import "./ManagerLogin.css"; // ✅ import CSS file
+import './StaffLogin.css';
 import taskimage2 from '../utils/Taskmanagment2.png';
 export default function ManagerLogin() {
   const navigate = useNavigate();
@@ -15,40 +15,52 @@ export default function ManagerLogin() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
-   setLoading(true);
+    setLoading(true);
     try {
-      const res = await axios.post("https://rj-task-managment-server.vercel.app/api/managers/login", form);
+      const res = await axios.post("https://rjtask-server.vercel.app/api/managers/login", form);
       localStorage.setItem("managerToken", res.data.token);
       localStorage.setItem("manager", JSON.stringify(res.data.manager));
       navigate("/manager/dashboard");
     } catch (err) {
       setError(err.response?.data?.error || "Login failed");
-    }finally {
+    } finally {
       setLoading(false);
     }
   };
 
   return (
-    <div className="manager-login-container" style={{
-        backgroundImage: `url(${taskimage2})`,
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-        height: '100vh',
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        width: '100%'
-      }}>
-      <div className="manager-login-card" style={{backdropFilter: 'blur(10px)', padding: '2rem', borderRadius: '1rem', boxShadow: '0px 6px 14px rgba(0, 0, 0, 0.2)', width: '100%', maxWidth: '400px', animation: 'fadeIn 0.5s ease-in-out'}}>
-        <h2 className="manager-login-title">Manager Login</h2>
+  <div className="login-container">
 
-        {error && <p className="manager-login-error">{error}</p>}
+    {/* LEFT SIDE */}
+    <div
+      className="login-left"
+      style={{
+        backgroundImage: "url('/rjLOGO2.png')",
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundRepeat: "no-repeat",
+        position: "relative"
+      }}
+    >
+      <div className="overlay">
+        <h1>Manager Panel</h1>
+        <p>Oversee teams, track performance, and manage project execution.</p>
+      </div>
+    </div>
 
-        <form onSubmit={handleSubmit} className="manager-login-form">
+    {/* RIGHT SIDE */}
+    <div className="login-right">
+      <div className="form-box">
+        <h2>Welcome Back</h2>
+        <p className="subtitle">Login as Manager</p>
+
+        {error && <div className="error">{error}</div>}
+
+        <form onSubmit={handleSubmit}>
           <input
             type="email"
             name="email"
-            placeholder="Email"
+            placeholder="Email address"
             value={form.email}
             onChange={handleChange}
             required
@@ -63,80 +75,13 @@ export default function ManagerLogin() {
             required
           />
 
-          <button type="submit" className="manager-login-btn" disabled={loading}>
-            {loading ? "Logging in..." : "Login as Manager"}
+          <button disabled={loading}>
+            {loading ? "Signing in..." : "Login"}
           </button>
         </form>
       </div>
     </div>
-  );
+
+  </div>
+);
 }
-
-
-// src/pages/Login.jsx
-// import React, { useState } from "react";
-// import axios from "axios";
-
-// const ManagerLogin = ({ onLogin }) => {
-//   const [email, setEmail] = useState("");
-//   const [password, setPassword] = useState("");
-
-//   const handleLogin = async (e) => {
-//     e.preventDefault();
-
-//     try {
-//       const res = await axios.post("http://localhost:3000/api/managers/login", {
-//         email,
-//         password,
-//       });
-
-//       if (res.data && res.data.user) {
-//         const user = res.data.user;
-//         localStorage.setItem("user", JSON.stringify(user));
-
-//         // ✅ Fetch tasks for logged-in user
-//         const taskRes = await axios.get(
-//           `http://localhost:3000/api/tasks/user/${user._id}`
-//         );
-//  console.log("Tasks fetched for userrrrrrrrrrrrrrrrr:", taskRes.data);
- 
-
-
-//         localStorage.setItem("tasks", JSON.stringify(taskRes.data));
-
-//         if (onLogin) onLogin(user, taskRes.data);
-        
-//       }
-//       console.log("Login successfulllllllll:", res.data);
-      
-//     } catch (err) {
-//       console.error("Login failed:", err);
-//       alert("Invalid email or password");
-//     }
-//   };
-
-//   return (
-//     <div className="login-container">
-//       <form onSubmit={handleLogin} className="login-form">
-//         <h2>Login</h2>
-//         <input
-//           type="email"
-//           placeholder="Email"
-//           value={email}
-//           onChange={(e) => setEmail(e.target.value)}
-//           required
-//         />
-//         <input
-//           type="password"
-//           placeholder="Password"
-//           value={password}
-//           onChange={(e) => setPassword(e.target.value)}
-//           required
-//         />
-//         <button type="submit">Login</button>
-//       </form>
-//     </div>
-//   );
-// };
-
-// export default ManagerLogin;

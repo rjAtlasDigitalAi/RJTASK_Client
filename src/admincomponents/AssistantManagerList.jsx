@@ -18,7 +18,7 @@ import EditAssistantManagerModalForm from "./EditAssistantManagerModalForm";
 
   const fetchAssistants = async () => {
     try {
-      const res = await axios.get("https://rj-task-managment-server.vercel.app/api/assistant-managers");
+      const res = await axios.get("https://rjtask-server.vercel.app/api/assistant-managers");
       setAssistants(res.data);
     } catch (err) {
       console.error("Error fetching assistant managers:", err);
@@ -40,7 +40,7 @@ import EditAssistantManagerModalForm from "./EditAssistantManagerModalForm";
 
     try {
       await axios.delete(
-        `https://rj-task-managment-server.vercel.app/api/assistant-managers/${id}`
+        `https://rjtask-server.vercel.app/api/assistant-managers/${id}`
       );
       fetchAssistants(); // Refresh list
     } catch (err) {
@@ -56,57 +56,7 @@ console.log(selectedAssistantId,"selectedAssistantIdddddddd");
   };
 
   return (
-    // <div className="assistant-manager-list-container">
-    //   <div className="assistant-manager-list-header">
-    //     <h1>Assistant Manager List</h1>
-    //     <button
-    //       className="add-assistant-btn"
-    //       onClick={() => setIsModalOpen(true)}
-    //     >
-    //       + Add Assistant Manager
-    //     </button>
-    //   </div>
-
-    //   {/* <button className="logout-btn" onClick={logout}>
-    //     Logout
-    //   </button> */}
-
-    //   <table className="assistant-manager-table">
-    //     <thead>
-    //       <tr>
-    //         <th>Name</th>
-    //         <th>Under Manager</th>
-    //         <th>Contact Number</th>
-    //         <th>Role</th>
-    //       </tr>
-    //     </thead>
-    //     <tbody>
-    //       {assistants.length > 0 ? (
-    //         assistants.map((am) => (
-    //           <tr key={am._id}>
-    //             <td>{am.name}</td>
-    //             <td>{am.managerId ? am.managerId.name : "-"}</td>
-    //             <td>{am.contactNumber || "-"}</td>
-    //             <td>{am.role}</td>
-    //           </tr>
-    //         ))
-    //       ) : (
-    //         <tr>
-    //           <td colSpan="4" style={{ textAlign: "center" }}>
-    //             No Assistant Managers found
-    //           </td>
-    //         </tr>
-    //       )}
-    //     </tbody>
-    //   </table>
-
-    //   {/* Add Assistant Manager Modal */}
-    //   <AddAssistantManagerModalForm
-    //     isOpen={isModalOpen}
-    //     onClose={() => setIsModalOpen(false)}
-    //     onCreated={fetchAssistants}
-    //   />
-    // </div>
+  
      <div className="assistant-manager-list-container">
       <div className="assistant-manager-list-header">
         <h1>Assistant Manager List</h1>
@@ -138,24 +88,7 @@ console.log(selectedAssistantId,"selectedAssistantIdddddddd");
               <th>Action</th> {/* ✅ New column */}
             </tr>
           </thead>
-          {/* <tbody>
-            {assistants.length > 0 ? (
-              assistants.map((am) => (
-                <tr key={am._id}>
-                  <td>{am.name}</td>
-                  <td>{am.managerId ? am.managerId.name : "-"}</td>
-                  <td>{am.contactNumber || "-"}</td>
-                  <td>{am.role}</td>
-                </tr>
-              ))
-            ) : (
-              <tr>
-                <td colSpan="4" style={{ textAlign: "center" }}>
-                  No Assistant Managers found
-                </td>
-              </tr>
-            )}
-          </tbody> */}
+          
            <tbody>
             {filteredAssistants.length > 0 ? (
               filteredAssistants.map((am) => (

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import {useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import taskimage from '../utils/Taskmanagment.png';
 import './StaffLogin.css';
 const StaffLogin = () => {
@@ -19,9 +19,9 @@ const StaffLogin = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setMessage('');
-   setLoading(true);
+    setLoading(true);
     try {
-      const res = await axios.post('https://rj-task-managment-server.vercel.app/api/auth/login', formData);
+      const res = await axios.post('https://rjtask-server.vercel.app/api/auth/login', formData);
       const { token, user } = res.data;
 
       if (user.status === 'blocked') {
@@ -42,99 +42,67 @@ const StaffLogin = () => {
     } catch (err) {
       const errorMsg = err.response?.data?.message || 'Login failed';
       setMessage(errorMsg);
-    }finally {
+    } finally {
       setLoading(false);
     }
   };
 
-  return (
-    // <div className="container mt-5" style={{ maxWidth: '400px' }}>
-    //   <h2 className="mb-4">Login</h2>
+ return (
+  <div className="login-container">
 
-    //   {message && <div className="alert alert-danger">{message}</div>}
+    {/* LEFT SIDE */}
+    <div
+      className="login-left"
+      style={{
+        backgroundImage: "url('/rjLOGO2.png')",
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundRepeat: "no-repeat",
+        position: "relative"
+      }}
+    >
+      <div className="overlay">
+        <h1>Task Manager</h1>
+        <p>Manage your team, tasks, and productivity in one place.</p>
+      </div>
+    </div>
 
-    //   <form onSubmit={handleSubmit}>
-    //     <div className="mb-3">
-    //       <label>Email</label>
-    //       <input
-    //         name="email"
-    //         type="email"
-    //         className="form-control"
-    //         value={formData.email}
-    //         onChange={handleChange}
-    //         required
-    //       />
-    //     </div>
+    {/* RIGHT SIDE */}
+    <div className="login-right">
+      <div className="form-box">
+        <h2>Welcome Back</h2>
+        <p className="subtitle">Login as Staff</p>
 
-    //     <div className="mb-3">
-    //       <label>Password</label>
-    //       <input
-    //         name="password"
-    //         type="password"
-    //         className="form-control"
-    //         value={formData.password}
-    //         onChange={handleChange}
-    //         required
-    //       />
-    //     </div>
+        {message && <div className="error">{message}</div>}
 
-    //     <button className="btn btn-success w-100" type="submit">Login</button>
-    //   </form>
-
-    //   <div className="mt-3 text-center">
-    //     <span>Don't have an account? </span>
-    //     <Link to="/signup">Sign Up</Link>
-    //   </div>
-    // </div>
-
-        <div className="admin-login-container"  style={{
-        backgroundImage: `url(${taskimage})`,
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-        height: '100vh',
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        width: '100%'
-      }}>
-      <div style={{backdropFilter: 'blur(10px)', padding: '2rem', borderRadius: '1rem', boxShadow: '0px 6px 14px rgba(0, 0, 0, 0.2)', width: '100%', maxWidth: '400px', animation: 'fadeIn 0.5s ease-in-out'}}>
-        <h2 className="admin-login-title" style={{color:"silver"}}> Staff Login</h2>
-
-        {message && <div className="admin-login-error">{message}</div>}
-
-        <form className="admin-login-form" onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit}>
           <input
-            name="email"
             type="email"
-            placeholder="Email"
+            name="email"
+            placeholder="Email address"
             value={formData.email}
             onChange={handleChange}
             required
           />
 
           <input
-            name="password"
             type="password"
+            name="password"
             placeholder="Password"
             value={formData.password}
             onChange={handleChange}
             required
           />
 
-          <button className="admin-login-btn" type="submit" disabled={loading} >
-           {loading ? "Logging in..." : "Login as Staff"}
+          <button type="submit" disabled={loading}>
+            {loading ? "Signing in..." : "Sign In"}
           </button>
         </form>
-
-        {/* <div className="signup-link">
-          Don't have an account? <Link to="/signup">Sign Up</Link>
-        </div> */}
       </div>
     </div>
 
-
-  
-  );
+  </div>
+);
 };
 
 export default StaffLogin;

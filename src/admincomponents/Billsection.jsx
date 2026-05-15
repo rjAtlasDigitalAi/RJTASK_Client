@@ -10,7 +10,7 @@ export default function BillSectionPage() {
   // Fetch all bill sections
   const fetchBillSections = async () => {
     try {
-      const res = await axios.get("https://rj-task-managment-server.vercel.app/api/billsection");
+      const res = await axios.get("https://rjtask-server.vercel.app/api/billsection");
       setBillSections(res.data.bills);
     } catch (err) {
       console.error("Error fetching bill sections:", err);
@@ -24,7 +24,7 @@ export default function BillSectionPage() {
   // Fetch company list for dropdown
   const fetchCompanies = async () => {
     try {
-      const res = await axios.get("https://rj-task-managment-server.vercel.app/api/companies");
+      const res = await axios.get("https://rjtask-server.vercel.app/api/companies");
       setCompanies(res.data);
     } catch (err) {
       console.error("Error fetching companies:", err);
@@ -90,59 +90,3 @@ export default function BillSectionPage() {
 }
 
 
-
-// // AddBillSectionModal.jsx
-// import React, { useState } from "react";
-
-// export default function AddBillSectionModal({ close, onSave }) {
-//   const [form, setForm] = useState({
-//     company: "",
-//     work: "",
-//     amount: "",
-//     date: "",
-//     discount: "",
-//     narration: ""
-//   });
-
-//   const handleChange = (e) => {
-//     setForm({ ...form, [e.target.name]: e.target.value });
-//   };
-
-//   const submitHandler = (e) => {
-//     e.preventDefault();
-//     onSave(form);
-//     close();
-//   };
-
-//   return (
-//     <div className="modal-backdrop" style={{
-//       position: "fixed",
-//       top: 0,
-//       left: 0,
-//       width: "100%",
-//       height: "100%",
-//       background: "rgba(0,0,0,0.5)",
-//       display: "flex",
-//       justifyContent: "center",
-//       alignItems: "center"
-//     }}>
-
-//       <div className="card p-4" style={{ width: "400px" }}>
-//         <h5 className="mb-3">Add Bill Section</h5>
-//         <form onSubmit={submitHandler} className="d-flex flex-column gap-3">
-//           <input name="company" className="form-control" placeholder="Company Name" onChange={handleChange} required />
-//           <input name="work" className="form-control" placeholder="Work Description" onChange={handleChange} required />
-//           <input name="amount" type="number" className="form-control" placeholder="Amount" onChange={handleChange} required />
-//           <input name="date" type="date" className="form-control" onChange={handleChange} required />
-//           <input name="discount" type="number" className="form-control" placeholder="Discount" onChange={handleChange} />
-//           <textarea name="narration" className="form-control" placeholder="Narration" onChange={handleChange}></textarea>
-
-//           <div className="d-flex justify-content-end gap-2 mt-2">
-//             <button type="button" className="btn btn-secondary" onClick={close}>Cancel</button>
-//             <button className="btn btn-success" type="submit">Save</button>
-//           </div>
-//         </form>
-//       </div>
-//     </div>
-//   );
-// }

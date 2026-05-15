@@ -1,79 +1,5 @@
 
 
-// import React, { useEffect, useState } from "react";
-// import axios from "axios";
-// // import "./AssistantManagerDashboard.css";
-
-// export default function AssistantManagerDashboard() {
-//   const [tasks, setTasks] = useState([]);
-//   const [loading, setLoading] = useState(true);
-
-//   // ✅ Get logged-in assistant manager and token
-//   const assistantManager = JSON.parse(localStorage.getItem("assistantManager"));
-//   const token = localStorage.getItem("assistantManagerToken");
-
-//   useEffect(() => {
-//     if (!assistantManager) return;
-
-//     axios
-//       .get(`http://localhost:3000/api/tasks/user/${assistantManager.id}`, {
-//         headers: {
-//           Authorization: `Bearer ${token}`, // ✅ secure API call
-//         },
-//       })
-//       .then((res) => {
-//         setTasks(res.data.tasks || res.data);
-//       })
-//       .catch((err) => {
-//         console.error("Error fetching assistant manager tasks:", err);
-//       })
-//       .finally(() => setLoading(false));
-//   }, [assistantManager, token]);
-
-//   if (!assistantManager) {
-//     return <p className="no-login">Please login as an assistant manager first.</p>;
-//   }
-
-//   return (
-//     <div className="assistant-dashboard">
-//       <h2 className="dashboard-title">
-//         Welcome, {assistantManager.name || assistantManager.email}
-//       </h2>
-
-//       {loading ? (
-//         <p className="loading-text">Loading tasks...</p>
-//       ) : tasks.length === 0 ? (
-//         <p className="no-task-text">No tasks assigned to you.</p>
-//       ) : (
-//         <table className="task-table">
-//           <thead>
-//             <tr>
-//               <th>Task Name</th>
-//               <th>Description</th>
-//               <th>Scheduled Time</th>
-//               <th>Assigned By</th>
-//               <th>Status</th>
-//             </tr>
-//           </thead>
-//           <tbody>
-//             {tasks.map((task) => (
-//               <tr key={task._id}>
-//                 <td>{task.taskName}</td>
-//                 <td>{task.description}</td>
-//                 <td>{new Date(task.scheduledTime).toLocaleString()}</td>
-//                 {/* <td>{task.assignedBy?.name || "N/A"}</td> */}
-//                 <td>{task.assignedBy}</td>
-//                 <td>{task.status || "Pending"}</td>
-//               </tr>
-//             ))}
-//           </tbody>
-//         </table>
-//       )}
-//     </div>
-//   );
-// }
-
-
 
 import React, {useState } from "react";
 import "../admincomponents/AdminDashboard.css"; // Assuming you have a CSS file for styles
@@ -100,36 +26,6 @@ const NAV_ITEMS = [
 function AdminDashboard() {
   const [active, setActive] = useState("dashboard");
   const [isOpen, setIsOpen] = useState(false);
-//  const [userGraph, setUserGraph] = useState([]);
-//   const [orderGraph, setOrderGraph] = useState([]);
-
-
-    // 👇 States for dashboard stats
-  // const [stats, setStats] = useState({ userCount: 0, orderCount: 0 });
-
-//   useEffect(() => {
-
-//     axios.get("https://smith-server-qpxw.vercel.app/api/dashboard/user-graph").then(res => setUserGraph(res.data));
-//     axios.get("https://smith-server-qpxw.vercel.app/api/dashboard/order-graph").then(res => setOrderGraph(res.data));
-
-//     const fetchStats = async () => {
-//       try {
-//         const res = await axios.get("https://smith-server-qpxw.vercel.app/api/dashboard/stats");
-//         if (res.data.success) {
-//           setStats(res.data.data);
-//         }
-//       } catch (error) {
-//         console.error("Error fetching dashboard stats", error);
-//       }
-//     };
-//     fetchStats();
-//   }, []);
-
-    // const formatData = (data) =>
-    // data.map((d) => ({
-    //   month: new Date(2025, d._id - 1).toLocaleString("default", { month: "short" }),
-    //   count: d.count,
-    // }));
 
   const handleSelect = (key) => {
     setActive(key);
@@ -207,24 +103,7 @@ function AdminDashboard() {
             {/* Sections */}
             {active === "dashboard" && (
               <div className="row g-3">
-                {/* <div className="col-md-6 col-xl-3">
-                  <div className="card h-100">
-                    <div className="card-body">
-                      <div className="card-title">Users</div>
-                      <div className="display-6">{stats.userCount}</div>
-                     
-                    </div>
-                  </div>
-                </div> */}
-                {/* <div className="col-md-6 col-xl-3">
-                  <div className="card h-100">
-                    <div className="card-body">
-                      <div className="card-title">Orders</div>
-                      <div className="display-6">{stats.orderCount}</div>
-                     
-                    </div>
-                  </div>
-                </div> */}
+             
                 <div className="col-12 col-xl-6">
                   <div className="card h-100">
                     <div className="card-body">

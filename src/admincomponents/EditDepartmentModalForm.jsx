@@ -19,7 +19,7 @@ export default function EditDepartmentModalForm({ isOpen, onClose, department, o
     e.preventDefault();
     try {
       await axios.put(
-        `https://rj-task-managment-server.vercel.app/api/departments/${department._id}`,
+        `https://rjtask-server.vercel.app/api/departments/${department._id}`,
         form
       );
       onUpdated();

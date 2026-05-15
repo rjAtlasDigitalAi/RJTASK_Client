@@ -13,7 +13,7 @@ export default function Billreport() {
   // Fetch Bill Section Data
   const loadData = async () => {
     try {
-      const res = await axios.get("https://rj-task-managment-server.vercel.app/api/billsection");
+      const res = await axios.get("https://rjtask-server.vercel.app/api/billsection");
       setBills(res.data.bills);
       setFiltered(res.data.bills);
     } catch (error) {

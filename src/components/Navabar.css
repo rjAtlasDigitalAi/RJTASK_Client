@@ -1,20 +1,121 @@
-.navbar-nav .nav-link {
-  color: #f1f1f1 !important;
-  font-weight: 500;
-  transition: color 0.3s ease;
+/* Wrapper */
+.nav-wrapper {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  backdrop-filter: blur(12px);
+  background: rgba(15, 15, 20, 0.75);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
 
-.navbar-nav .nav-link:hover {
-  color: #0d6efd !important; /* Bootstrap primary blue */
+/* Container */
+.nav-container {
+  max-width: 1200px;
+  margin: auto;
+  padding: 14px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
-.mobile-menu a {
+/* Logo */
+.nav-logo {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: 0.5px;
   text-decoration: none;
-  font-size: 1.1rem;
-  font-weight: 500;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-.mobile-menu a:hover {
-  color: #0d6efd;
+/* Links */
+.nav-links {
+  display: flex;
+  gap: 28px;
+  align-items: center;
+}
+
+/* Links style */
+.nav-links a {
+  position: relative;
+  text-decoration: none;
+  color: #d6d6d6;
+  font-weight: 500;
+  font-size: 0.95rem;
+  transition: 0.3s ease;
+  padding: 6px 0;
+}
+
+/* Hover underline animation */
+.nav-links a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -4px;
+  width: 0%;
+  height: 2px;
+  background: #4f8cff;
+  transition: 0.3s ease;
+}
+
+.nav-links a:hover {
+  color: #ffffff;
+}
+
+.nav-links a:hover::after {
+  width: 100%;
+}
+
+/* Toggle button (hamburger) */
+.nav-toggle {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.nav-toggle span {
+  width: 24px;
+  height: 2px;
+  background: #fff;
+  transition: 0.3s;
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .nav-toggle {
+    display: flex;
+  }
+
+  .nav-links {
+  position: absolute;
+  top: 100%;   /* ✅ replaces 64px */
+  right: 0;
+  left: 0;
+  background: rgba(20, 20, 28, 0.95);
+  flex-direction: column;
+  gap: 18px;
+  padding: 20px;
+
+  opacity: 0;
+  transform: translateY(-10px);
+  pointer-events: none;
+  transition: 0.3s ease;
+
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+  .nav-links.active {
+    display: flex;
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+
+  .nav-links a {
+    padding: 10px 0;
+    width: 100%;
+    text-align: center;
+  }
 }

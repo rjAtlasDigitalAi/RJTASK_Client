@@ -19,7 +19,7 @@ export default function EditCompanyModalForm({ isOpen, onClose, company, onUpdat
     e.preventDefault();
     try {
       await axios.put(
-        `https://rj-task-managment-server.vercel.app/api/companies/${company._id}`,
+        `https://rjtask-server.vercel.app/api/companies/${company._id}`,
         form
       );
       onUpdated();

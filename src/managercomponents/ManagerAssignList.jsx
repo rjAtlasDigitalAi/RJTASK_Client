@@ -1,75 +1,4 @@
-// import React, { useEffect, useState } from "react";
-// import axios from "axios";
-// // import "./ManagerDashboard.css";
 
-// export default function ManagerAssignList() {
-//   const [tasks, setTasks] = useState([]);
-//   const [loading, setLoading] = useState(true);
-
-//   const manager = JSON.parse(localStorage.getItem("manager"));
-//    // ✅ logged-in manager
-//   const token = localStorage.getItem("managerToken");
-
-//   useEffect(() => {
-//     if (!manager) return;
-
-//     // ✅ Fetch tasks based on manager's ID
-//     axios
-//       .get(`http://localhost:3000/api/tasks/user/${manager.id}`, {
-//         headers: {
-//           Authorization: `Bearer ${token}`, // ✅ secure API call
-//         },
-//       })
-//       .then((res) => {
-//         setTasks(res.data);
-//       })
-//       .catch((err) => {
-//         console.error("Error fetching manager tasks:", err);
-//       })
-//       .finally(() => setLoading(false));
-//   }, [manager, token]);
-
-//   if (!manager) {
-//     return <p className="no-login">Please login as a manager first.</p>;
-//   }
-
-//   console.log("Manager tasksssssssss:", tasks);
-  
-//   return (
-//     <div className="manager-dashboard">
-//       <h2 className="dashboard-title">Welcome, {manager.email}</h2>
-
-//       {loading ? (
-//         <p className="loading-text">Loading tasks...</p>
-//       ) : tasks.length === 0 ? (
-//         <p className="no-task-text">No tasks assigned to you.</p>
-//       ) : (
-//         <table className="task-table">
-//           <thead>
-//             <tr>
-//               <th>Task Name</th>
-//               <th>Description</th>
-//               <th>Scheduled Time</th>
-//               <th>Assigned By</th>
-//               <th>Status</th>
-//             </tr>
-//           </thead>
-//           <tbody>
-//             {tasks.map((task) => (
-//               <tr key={task._id}>
-//                 <td>{task.taskName}</td>
-//                 <td>{task.description}</td>
-//                 <td>{new Date(task.scheduledTime).toLocaleString()}</td>
-//                 <td>{task.assignedBy}</td>
-//                 <td>{task.status || "Pending"}</td>
-//               </tr>
-//             ))}
-//           </tbody>
-//         </table>
-//       )}
-//     </div>
-//   );
-// }
 
 import React, { useEffect, useState } from "react";
 import axios from "axios";
@@ -94,7 +23,7 @@ export default function ManagerAssignList() {
     if (!manager) return;
 
     axios
-      .get(`https://rj-task-managment-server.vercel.app/api/tasks/user/${manager.id}`, {
+      .get(`https://rjtask-server.vercel.app/api/tasks/user/${manager.id}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -109,7 +38,7 @@ export default function ManagerAssignList() {
   const handleStatusChange = async (taskId, newStatus) => {
     try {
       await axios.put(
-        `https://rj-task-managment-server.vercel.app/api/tasks/${taskId}`,
+        `https://rjtask-server.vercel.app/api/tasks/${taskId}`,
         { status: newStatus },
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -129,14 +58,7 @@ export default function ManagerAssignList() {
     return <p className="no-login">Please login as a manager first.</p>;
   }
 
-  // ✅ Prepare Pie Chart Data
-  // const statusCounts = tasks.reduce(
-  //   (acc, task) => {
-  //     acc[task.status || "pending"] += 1;
-  //     return acc;
-  //   },
-  //   { pending: 0, "in-progress": 0, completed: 0 }
-  // );
+
   const statusCounts = Array.isArray(tasks)
   ? tasks.reduce(
       (acc, task) => {
@@ -156,19 +78,7 @@ export default function ManagerAssignList() {
 
   const COLORS = ["#facc15", "#3b82f6", "#22c55e"]; // yellow, blue, green
 
- // Filter tasks by taskName and filterDate
 
-  // const filteredTasks = tasks.filter((task) => {
-  //   const matchesName = task.taskName.toLowerCase().includes(searchName.toLowerCase());
-
-  //   let matchesDate = true;
-  //   if (filterDate) {
-  //     const taskDate = new Date(task.scheduledTime).toISOString().split("T")[0];
-  //     matchesDate = taskDate === filterDate;
-  //   }
-
-  //   return matchesName && matchesDate;
-  // });
 
   const filteredTasks = Array.isArray(tasks)
   ? tasks.filter((task) => {
@@ -192,80 +102,7 @@ export default function ManagerAssignList() {
 
 
   return (
-//     <div className="manager-dashboard">
-//       <h2 className="dashboard-title">Welcome, {manager.email}</h2>
 
-//       {loading ? (
-//         <p className="loading-text">Loading tasks...</p>
-//       ) : tasks.length === 0 ? (
-//         <p className="no-task-text">No tasks assigned to you.</p>
-//       ) : (
-// <>
-
-
-
-//          {/* ✅ Task Status Pie Chart */}
-//           <div className="task-status-chart" style={{ marginTop: "2rem" }}>
-//             <h3>Task Status Overview</h3>
-//             <ResponsiveContainer width="100%" height={300}>
-//               <PieChart>
-//                 <Pie
-//                   data={pieData}
-//                   cx="50%"
-//                   cy="50%"
-//                   labelLine={false}
-//                   outerRadius={120}
-//                   dataKey="value"
-//                   label={({ name, value }) => `${name}: ${value}`}
-//                 >
-//                   {pieData.map((entry, index) => (
-//                     <Cell key={`cell-${index}`} fill={COLORS[index]} />
-//                   ))}
-//                 </Pie>
-//                 <Tooltip />
-//                 <Legend />
-//               </PieChart>
-//             </ResponsiveContainer>
-//           </div>
-//         <table className="task-table">
-//           <thead>
-//             <tr>
-//               <th>Task Name</th>
-//               <th>Description</th>
-//               <th>Scheduled Time</th>
-//               <th>Assigned By</th>
-//               <th>repeat</th>
-//               <th>Status</th>
-//             </tr>
-//           </thead>
-//           <tbody>
-//             {Array.isArray(tasks) &&
-//                 tasks.map((task) =>
-//              (
-//               <tr key={task._id}>
-//                 <td>{task.taskName}</td>
-//                 <td>{task.description}</td>
-//                 <td>{new Date(task.scheduledTime).toLocaleString()}</td>
-//                 <td>{task.assignedBy|| "Unknown"}</td>
-//                 <td>{task.repeat || "once"}</td>
-//                 <td>
-//                   <select
-//                     value={task.status || "pending"}
-//                     onChange={(e) => handleStatusChange(task._id, e.target.value)}
-//                   >
-//                     <option value="pending">Pending</option>
-//                     <option value="in-progress">In Progress</option>
-//                     <option value="completed">Completed</option>
-//                     <option value="cancelled">Cancelled</option>
-//                   </select>
-//                 </td>
-//               </tr>
-//             ))}
-//           </tbody>
-//         </table>
-//         </>
-//       )}
-//     </div>
  <div className="manager-dashboard">
       <h2 className="dashboard-title">Welcome, {manager.email}</h2>
 

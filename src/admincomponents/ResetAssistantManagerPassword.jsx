@@ -7,7 +7,7 @@ function ResetAssistantManagerPassword({ assistantId, onClose }) {
   const handleReset = async () => {
     try {
       await axios.put(
-        `https://rj-task-managment-server.vercel.app/api/assistant-managers/${assistantId}/reset-password`,
+        `https://rjtask-server.vercel.app/api/assistant-managers/${assistantId}/reset-password`,
         { newPassword }
       );
       alert("Password reset successfully!");
@@ -20,17 +20,6 @@ function ResetAssistantManagerPassword({ assistantId, onClose }) {
   };
 
   return (
-    // <div className="reset-password-modal">
-    //   <h3>Reset Password</h3>
-    //   <input
-    //     type="password"
-    //     placeholder="Enter new password"
-    //     value={newPassword}
-    //     onChange={(e) => setNewPassword(e.target.value)}
-    //   />
-    //   <button onClick={handleReset}>Reset</button>
-    //   <button onClick={onClose}>Cancel</button>
-    // </div>
 
      <div className="reset-password-modal" role="dialog" aria-modal="true">
       <div className="modal-card">

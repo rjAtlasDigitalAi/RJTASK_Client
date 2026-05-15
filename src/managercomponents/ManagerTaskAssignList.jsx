@@ -15,16 +15,7 @@ function ManagerTaskAssignList() {
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
 const [selectedTask, setSelectedTask] = useState(null);
 
-  // Fetch tasks
-  
-//   const fetchTasks = async () => {
-//     try {
-//       const res = await axios.get("http://localhost:3000/api/tasks");
-//       setTasks(res.data);
-//     } catch (err) {
-//       console.error("Error fetching tasks:", err);
-//     }
-//   };
+
 const fetchTasks = async () => {
   try {
     const loggedManager = JSON.parse(localStorage.getItem("manager")); // ✅ Get logged-in manager
@@ -33,7 +24,7 @@ const fetchTasks = async () => {
       return;
     }
 
-    const res = await axios.get("https://rj-task-managment-server.vercel.app/api/tasks/tasks");
+    const res = await axios.get("https://rjtask-server.vercel.app/api/tasks/tasks");
 
     // ✅ Filter tasks to only show ones assigned by this manager
     const filteredTasks = res.data.filter(
@@ -56,7 +47,7 @@ const fetchTasks = async () => {
   const handleDelete = async (id) => {
     if (!window.confirm("Are you sure you want to delete this task?")) return;
     try {
-      await axios.delete(`https://rj-task-managment-server.vercel.app/api/tasks/${id}`);
+      await axios.delete(`https://rjtask-server.vercel.app/api/tasks/${id}`);
       fetchTasks(); // refresh after delete
     } catch (err) {
       console.error("Error deleting task:", err);
@@ -64,18 +55,6 @@ const fetchTasks = async () => {
     }
   };
 
-
-  
-
-   // Filter tasks based on name and date
-  // const filteredTasks = tasks.filter((t) => {
-  //   const matchesName = t.taskName?.toLowerCase().includes(searchName.toLowerCase());
-  //   const matchescompany = t.company?.name.toLowerCase().includes(searchName.toLowerCase());
-  //   const matchesDate = searchDate
-  //     ? new Date(t.scheduledTime).toISOString().split("T")[0] === searchDate
-  //     : true;
-  //   return matchesName||matchescompany && matchesDate;
-  // });
 
    // ✅ Dynamic name options based on selected role
   const availableNames = [
@@ -111,66 +90,7 @@ const fetchTasks = async () => {
   });
 
   return (
-    // <div className="task-list-container">
-    //   <div className="task-list-header">
-    //     <h1>Task List</h1>
-    //     <button className="add-task-btn" onClick={() => setIsModalOpen(true)}>
-    //       + Add Task
-    //     </button>
-    //   </div>
-
-    //   <table className="task-table">
-    //     <thead>
-    //       <tr>
-    //         <th>Task Name</th>
-    //         <th>Description</th>
-    //         <th>Scheduled Time</th>
-    //         <th>Role</th>
-    //         <th>Assigned To</th>
-    //         <th>Status</th>
-    //         <th>repeat</th>
-    //         <th>Actions</th>
-    //       </tr>
-    //     </thead>
-    //     <tbody>
-    //       {tasks.length > 0 ? (
-    //         tasks.map((t) => (
-    //           <tr key={t._id}>
-    //             <td>{t.taskName}</td>
-    //             <td>{t.description || "—"}</td>
-    //             <td>{new Date(t.scheduledTime).toLocaleString()}</td>
-    //             <td>{t.role}</td>
-    //             <td>{t.assignedTo ? t.assignedTo.name : "Myself"}</td>
-    //             <td>{t.status}</td>
-    //             <td>{t.repeat}</td>
-    //             <td>
-    //               <button className="edit-btn">Edit</button>
-    //               <button
-    //                 className="delete-btn"
-    //                 onClick={() => handleDelete(t._id)}
-    //               >
-    //                 Delete
-    //               </button>
-    //             </td>
-    //           </tr>
-    //         ))
-    //       ) : (
-    //         <tr>
-    //           <td colSpan="6" style={{ textAlign: "center" }}>
-    //             No tasks found
-    //           </td>
-    //         </tr>
-    //       )}
-    //     </tbody>
-    //   </table>
-
-    //   {/* Task Assign Modal */}
-    //   <ManagerTaskAssignModal
-    //     isOpen={isModalOpen}
-    //     onClose={() => setIsModalOpen(false)}
-    //     onCreated={fetchTasks}
-    //   />
-    // </div>
+  
      <div className="task-list-container">
       <h1>Task List</h1>
       <div className="task-list-header">
@@ -255,36 +175,7 @@ const fetchTasks = async () => {
               <th>Actions</th>
             </tr>
           </thead>
-          {/* <tbody>
-            {tasks.length > 0 ? (
-              tasks.map((t) => (
-                <tr key={t._id}>
-                  <td>{t.taskName}</td>
-                  <td>{t.description || "—"}</td>
-                  <td>{new Date(t.scheduledTime).toLocaleString()}</td>
-                  <td>{t.role}</td>
-                  <td>{t.assignedTo ? t.assignedTo.name : "Myself"}</td>
-                  <td>{t.status}</td>
-                  <td>{t.repeat}</td>
-                  <td>
-                    <button className="edit-btn">Edit</button>
-                    <button
-                      className="delete-btn"
-                      onClick={() => handleDelete(t._id)}
-                    >
-                      Delete
-                    </button>
-                  </td>
-                </tr>
-              ))
-            ) : (
-              <tr>
-                <td colSpan="8" style={{ textAlign: "center" }}>
-                  No tasks found
-                </td>
-              </tr>
-            )}
-          </tbody> */}
+         
           <tbody>
             {filteredTasks.length > 0 ? (
               filteredTasks.map((t) => (
